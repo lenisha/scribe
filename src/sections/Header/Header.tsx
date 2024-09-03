@@ -1,9 +1,11 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ThemeIcon from '@mui/icons-material/InvertColors';
+import InterpreterModeIcon from '@mui/icons-material/InterpreterMode';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import AddTaskIcon from '@mui/icons-material/AddTask';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,6 +17,7 @@ import useHotKeysDialog from '@/store/hotkeys';
 import useNotifications from '@/store/notifications';
 import useSidebar from '@/store/sidebar';
 import useTheme from '@/store/theme';
+import { useNavigate } from 'react-router-dom';
 
 import { HotKeysButton } from './styled';
 import { getRandomJoke } from './utils';
@@ -24,6 +27,7 @@ function Header() {
   const [theme, themeActions] = useTheme();
   const [, notificationsActions] = useNotifications();
   const [, hotKeysDialogActions] = useHotKeysDialog();
+  const navigate = useNavigate();
 
   function showNotification() {
     notificationsActions.push({
@@ -55,10 +59,20 @@ function Header() {
             >
               <MenuIcon />
             </IconButton>
-            <Button onClick={showNotification} color="info">
-              {title}
-            </Button>
+          
+            <Tooltip title="New Note" arrow>
+              <IconButton
+                onClick={() => navigate('/new-note')}
+                size="large"
+                color="info"
+                aria-label="new"
+              >
+                  <AddTaskIcon/>
+              </IconButton>
+            </Tooltip>
           </FlexBox>
+
+
           <FlexBox>
             <FlexBox>
               <Tooltip title="Hot keys" arrow>

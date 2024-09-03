@@ -3,15 +3,15 @@ import Typography from '@mui/material/Typography';
 import Meta from '@/components/Meta';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
 
-function Page1() {
+function NewNote() {
   return (
     <>
-      <Meta title="page 1" />
+      <Meta title="New Note" />
       <FullSizeCenteredFlexBox>
-        <Typography variant="h3">Page 1</Typography>
+        <Typography variant="h3">New Note</Typography>
       </FullSizeCenteredFlexBox>
     </>
   );
 }
 
-export default Page1;
+export default NewNote;
