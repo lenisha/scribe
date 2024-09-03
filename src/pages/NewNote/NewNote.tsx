@@ -5,11 +5,36 @@ import { FullSizeCenteredFlexBox, HalfSizeCenteredFlexBox} from '@/components/st
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { TextField, Button, Box } from '@mui/material';
-
+import MicIcon from '@mui/icons-material/Mic';
+import MicOffIcon from '@mui/icons-material/MicOff';
 import { TextareaAutosize } from '@mui/base/TextareaAutosize';
-import { Label } from '@mui/icons-material';
+import CardActions from '@mui/material/CardActions';
+import Tooltip from '@mui/material/Tooltip';
+import { FlexBox } from '@/components/styled';
+import { useState } from 'react';
 
 function NewNote() {
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const [noteText, setNoteText] = useState('');
+
+  const startDictation = () => {
+    setIsTranscribing(true);
+  }
+
+  const stopDictation = () => {
+
+    setIsTranscribing(false);
+  };
+
+
+  const handleMicButtonClick = () => {
+    if (isTranscribing) {
+      stopDictation();
+    } else {
+      startDictation();
+    }
+  };
+
   return (
     <>
       <Meta title="New Note" />
@@ -30,7 +55,20 @@ function NewNote() {
                     fullWidth
                     sx={{ height: '100%' , overflow: 'auto'  }}
                   />
-                </CardContent>
+                 </CardContent>
+                <CardActions disableSpacing>
+                    <FlexBox sx={{ alignItems: 'center' }}>
+                    <Tooltip title={isTranscribing ? "Stop" : "Start"} arrow>
+                      <Button variant="contained" 
+                              color={isTranscribing ? "warning" : "primary"}
+                              startIcon={isTranscribing ?<MicOffIcon/> :<MicIcon />} 
+                              onClick={handleMicButtonClick}>
+                        {isTranscribing ? "Stop Transcription" : "Start Transcription"}
+                      </Button>
+                    </Tooltip>
+                    </FlexBox>
+                 
+                </CardActions>
                 </Card> 
               
               <Button variant="contained" color="primary" sx={{ alignSelf: 'center' }}>
