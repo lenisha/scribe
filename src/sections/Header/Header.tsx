@@ -19,7 +19,7 @@ import useSidebar from '@/store/sidebar';
 import useTheme from '@/store/theme';
 import { useNavigate } from 'react-router-dom';
 
-import { HotKeysButton } from './styled';
+import { HotKeysButton, NewButton } from './styled';
 import { getRandomJoke } from './utils';
 
 function Header() {
@@ -61,14 +61,16 @@ function Header() {
             </IconButton>
           
             <Tooltip title="New Note" arrow>
-              <IconButton
-                onClick={() => navigate('/new-note')}
-                size="large"
-                color="info"
-                aria-label="new"
-              >
+              <NewButton
+                  size="small"
+                  variant="outlined"
+                  color = "info"
+                  aria-label="new"
+                  onClick={() => navigate('/new-note')}
+                >
                   <AddTaskIcon/>
-              </IconButton>
+                  New Note
+              </NewButton>
             </Tooltip>
           </FlexBox>
 

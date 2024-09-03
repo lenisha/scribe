@@ -12,4 +12,15 @@ const HotKeysButton = styled(Button)(({ theme }) => ({
   color: theme.palette.text.disabled,
 }));
 
-export { HotKeysButton };
+const NewButton = styled(Button)(({ theme }) => ({
+  height: 'fit-content',
+  alignSelf: 'center',
+  marginRight: theme.spacing(1),
+  borderColor: theme.palette.info.main,
+  '&:hover': {
+    borderColor: theme.palette.info.main,
+  },
+  color: theme.palette.info.main,
+}));
+
+export { HotKeysButton , NewButton};
