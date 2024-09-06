@@ -12,7 +12,7 @@ echo "Settings"
 pushd ../api
 
 echo "create ZIP file"
-zip -r deploy.zip app.py requirements.txt  -x **__pycache__\* 
+zip -r *  -x **__pycache__\* 
 
 echo "ZIP Deploy"
 az webapp deploy --resource-group $RESOURCE_GROUP  --name $WEB_APP_NAME --src-path deploy.zip

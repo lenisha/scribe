@@ -3,22 +3,29 @@ import os, requests
 from flask import Flask, render_template, jsonify, request
 from dotenv import load_dotenv
 from flask_cors import CORS
+from notes import send_transcription_to_prompty
 
 # Load environment variables from .env file
 load_dotenv(override=True)
 
 app= Flask(__name__)
 
+# Set CORS environment variable
 CORS_VAR = os.getenv('CORS','*')
 CORS(app, resources={r"/*": {"origins": CORS_VAR}})  # Enable CORS for localhost:5773
 
-
+###
+## Healthcheck endpoint
+###
 @app.route('/')
 @app.route('/api/healthcheck', methods=['GET'])
 def status():
     status = [ { 'status': 'healthy' } ]
     return jsonify(status)
 
+###
+# Get the speech token from the Azure Speech Service
+###
 @app.route('/api/get-speech-token', methods=['GET'])
 def get_speech_token():
     speech_key = os.getenv('SPEECH_KEY')
@@ -40,6 +47,21 @@ def get_speech_token():
         return 'There was an error authorizing your speech key.', 401
 
 
+###
+## Run Prompty OpenAPI: summarize transcription of conversation
+###
+@app.route('/api/generate-doc', methods=['POST'])
+def generate_doc():
+
+    try:
+        data = request.json
+        print("Received:" + str(data))
+
+        note = send_transcription_to_prompty(data['transcription'])
+        return jsonify(note = note)
+
+    except Exception as e:
+        return str(e), 400
 
 
 
