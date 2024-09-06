@@ -1,0 +1,7 @@
+Flask
+flask_restful
+gunicorn
+Werkzeug
+python-dotenv
+flask_cors
+requests

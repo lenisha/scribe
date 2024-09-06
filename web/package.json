@@ -33,6 +33,7 @@
     "@mui/material": "^5.15.0",
     "@mui/system": "^5.15.0",
     "@mui/utils": "^5.15.0",
+    "axios": "^1.7.7",
     "is-mobile": "^4.0.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.40.0",
     "notistack": "^3.0.1",
@@ -42,7 +43,8 @@
     "react-helmet-async": "^2.0.3",
     "react-hotkeys-hook": "^4.4.1",
     "react-router-dom": "^6.21.0",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "universal-cookie": "^7.2.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.1",

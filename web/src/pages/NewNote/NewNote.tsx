@@ -13,7 +13,7 @@ import CardActions from '@mui/material/CardActions';
 import Tooltip from '@mui/material/Tooltip';
 import { FlexBox } from '@/components/styled';
 import { useState } from 'react';
-import { createSpeechRecognizer } from './speech_utils'
+import { createSpeechTranscriber } from './speech_utils'
 import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk';
 
 
@@ -22,69 +22,74 @@ function NewNote() {
   const [noteText, setNoteText] = useState('');
   const [soapText, setSoapText] = useState('');
   const [currentText, setCurrentText] = useState('');
-  const [recognizer, setRecognizer] = useState<SpeechSDK.SpeechRecognizer | null>(null);
+  const [transcriber, setTranscriber] = useState<SpeechSDK.ConversationTranscriber | null>(null);
+  const [token, setToken] = useState('')
 
 
-  function onRecognizing(sender: SpeechSDK.Recognizer, recognitionEventArgs: SpeechSDK.SpeechRecognitionEventArgs) {
+
+  function onRecognizing(recognitionEventArgs: SpeechSDK.ConversationTranscriptionEventArgs)  {
       var result = recognitionEventArgs.result;
-      console.log(`(recognizing) Reason: ${SpeechSDK.ResultReason[result.reason]}`  + `Text: ${result.text}`);
-      setCurrentText(result.text);
+      var text = result.text;
+      var speakerId = result.speakerId || 'Unknown';
+      console.log(`(recognizing) [Speaker ${speakerId}]: ${text}`);
+      setCurrentText(`[Speaker ${speakerId}]: ${text}`);
   }
 
-  function onRecognized(sender: SpeechSDK.Recognizer, recognitionEventArgs: SpeechSDK.SpeechRecognitionEventArgs) {
+  function onRecognized(recognitionEventArgs: SpeechSDK.ConversationTranscriptionEventArgs) {
       var result = recognitionEventArgs.result;
-      console.log(`(recognized) Reason: ${SpeechSDK.ResultReason[result.reason]}` + `Text: ${result.text}`);
+      var text = result.text;
+      var speakerId = result.speakerId || 'Unknown';
+      console.log(`(recognized) Reason: ${SpeechSDK.ResultReason[result.reason]}` + `Text: ${result.text}` + `SpeakerId: ${speakerId}`);
 
+  
       switch (result.reason) {
         case SpeechSDK.ResultReason.NoMatch:
-            var noMatchDetail = SpeechSDK.NoMatchDetails.fromResult(result);
-            console.log("NoMatchReason: ${SpeechSDK.NoMatchReason[noMatchDetail.reason]}\r\n");
-            break;
-        case SpeechSDK.ResultReason.Canceled:
-            var cancelDetails = SpeechSDK.CancellationDetails.fromResult(result);
-            console.log(`CancellationReason: ${SpeechSDK.CancellationReason[cancelDetails.reason]}`
-                + (cancelDetails.reason === SpeechSDK.CancellationReason.Error ? `: ${cancelDetails.errorDetails}` : ``)
-                + `\r\n`);
+            break
+        case SpeechSDK.ResultReason.Canceled:  
             break;
         case SpeechSDK.ResultReason.RecognizedSpeech:
         case SpeechSDK.ResultReason.TranslatedSpeech:
         case SpeechSDK.ResultReason.RecognizedIntent:
-            setNoteText(prevText => prevText + result.text + '\r\n');
-            setCurrentText('');
+            if (text && text.trim() !== '') {
+              setNoteText(prevText => prevText + `[Speaker ${speakerId}]: ${text}` +  '\r\n');
+              setCurrentText('');
+            }
             break;
-    }
-    
+      }
+           
   }
 
-  function onCanceled(sender: SpeechSDK.Recognizer,  event: SpeechSDK.SpeechRecognitionCanceledEventArgs) {
+  function onCanceled(event: SpeechSDK.SpeechRecognitionCanceledEventArgs) {
       console.log('Canceled: ', event.errorDetails);
       console.log(`(cancel) Reason: ` + SpeechSDK.CancellationReason[event.reason]);
   }
    
-  function onSessionStarted(sender: SpeechSDK.Recognizer, event: SpeechSDK.SessionEventArgs) {
+  function onSessionStarted( event: SpeechSDK.SessionEventArgs) {
       console.log(`Session started. ${event.sessionId}`);
   }
 
-  function onSessionStopped(sender: SpeechSDK.Recognizer, event: SpeechSDK.SessionEventArgs) {
+  function onSessionStopped( event: SpeechSDK.SessionEventArgs) {
       console.log(`Session stopped. ${event.sessionId}`);
       
   }
 
 
-  const startContinuosDictation = () => {
-    setIsTranscribing(true);
+  const startContinuosDictation = async () => {
+    
     // Create the SpeechRecognizer and set up common event handlers and PhraseList data
-    const recognizer = createSpeechRecognizer();
-    if (recognizer) {
+    const transcriber = await createSpeechTranscriber();
+    if (transcriber) {
 
-      recognizer.recognizing = (s, e) => onRecognizing(s, e);
-      recognizer.recognized = (s, e) => onRecognized(s, e);
-      recognizer.canceled = (s, e) => onCanceled(s,e);
-      recognizer.sessionStarted = (s, e) => onSessionStarted(s,e);
-      recognizer.sessionStopped = (s, e) => onSessionStopped(s, e);
- 
-      setRecognizer(recognizer);
-      recognizer.startContinuousRecognitionAsync();
+      transcriber.transcribing = (s, e) =>   onRecognizing(e);
+      transcriber.transcribed = (s, e) =>   onRecognized(e);
+    
+      transcriber.canceled = (s, e) => onCanceled(e);
+      transcriber.sessionStarted = (s, e) => onSessionStarted(e);
+      transcriber.sessionStopped = (s, e) => onSessionStopped(e);
+  
+      setTranscriber(transcriber);
+      transcriber.startTranscribingAsync();
+      setIsTranscribing(true);
       
       setCurrentText('');
       setNoteText('');
@@ -97,10 +102,10 @@ function NewNote() {
   const stopDictation = () => {
     setIsTranscribing(false);
 
-    if (recognizer) {
-      recognizer.stopContinuousRecognitionAsync();
-      recognizer.close();
-      setRecognizer(null);
+    if (transcriber) {
+      transcriber.stopTranscribingAsync();
+      transcriber.close();
+      setTranscriber(null);
     }
   };
 

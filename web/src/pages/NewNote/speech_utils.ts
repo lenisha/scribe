@@ -1,14 +1,29 @@
 import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk';
+import Cookie from 'universal-cookie';
+import axios, { AxiosInstance } from 'axios';
+import config from "@/services/config";
 
-function createSpeechRecognizer( ) : SpeechSDK.SpeechRecognizer | null {
+async function createSpeechRecognizer( ) : Promise<SpeechSDK.SpeechRecognizer | null> {
     var audioConfig = getAudioConfig();
-    var speechConfig = getSpeechConfig(SpeechSDK.SpeechConfig);
+    var speechConfig = await getSpeechConfig(SpeechSDK.SpeechConfig);
     if (!speechConfig) {
         console.error('Failed to create speech config.');
         return null;
     }
     // Create the SpeechRecognizer and set up common event handlers and PhraseList data
     return new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+   
+}
+
+async function createSpeechTranscriber( ) : Promise<SpeechSDK.ConversationTranscriber | null>  {
+    var audioConfig = getAudioConfig();
+    var speechConfig = await getSpeechConfig(SpeechSDK.SpeechConfig);
+    if (!speechConfig) {
+        console.error('Failed to create speech config.');
+        return null;
+    }
+    // Create the SpeechRecognizer and set up common event handlers and PhraseList data
+    return new SpeechSDK.ConversationTranscriber(speechConfig, audioConfig);
    
 }
 
@@ -24,11 +39,39 @@ function getAudioConfig() {
     }
 }
 
-function getSpeechConfig(sdkConfigType: typeof SpeechSDK.SpeechConfig) {
+async function getSpeechConfig(sdkConfigType: typeof SpeechSDK.SpeechConfig) {
     var speechConfig;
     
-     
-    speechConfig = sdkConfigType.fromSubscription(key, region);
+    let key =  config.api.key;
+    let region = config.api.region;
+
+    // If a custom base URL is specified, use it to get the token from the back-end
+    if (config.api.baseUrl) {
+        console.log('Using custom base URL to get token: ' + config.api.baseUrl);
+        const authorizationToken =  await getTokenOrRefresh();
+        if (!authorizationToken) {
+            console.error('Failed to get token from back-end.');
+            alert("Please validate your backend configuration.");
+            return undefined;
+        }
+        speechConfig = sdkConfigType.fromAuthorizationToken(authorizationToken, region);
+        if (!speechConfig) {
+            console.error('Failed to create speech config.');
+            alert("Please validate your backend configuration.");
+            return undefined;
+        }
+
+    } 
+    // If a key is not specified, use the default subscription key
+    else if (!key) {
+        console.error('Please enter your Cognitive Services Speech subscription key!');
+        alert("Please enter your Cognitive Services Speech subscription key!");
+        return undefined;
+    } else {
+        console.log(`Connecting using key and reion: ${key.slice(0,4)} ${region}`);
+        speechConfig = sdkConfigType.fromSubscription(key, region);
+    }
+    
     speechConfig.outputFormat = SpeechSDK.OutputFormat.Simple;
     speechConfig.speechRecognitionLanguage = "en-US";
     return speechConfig;
@@ -71,6 +114,30 @@ function enumerateMicrophones() {
     return microphoneSources;
 }
 
+async function getTokenOrRefresh() : Promise<string> {
+    const cookie = new Cookie();
+    const speechToken = cookie.get('speech-token');
+
+    if (speechToken === undefined || speechToken === null || speechToken === '') {
+        try {
+         
+            const res = await axios.get(config.api.baseUrl + '/api/get-speech-token');
+            const token = res.data.token;
+            const region = res.data.region;
+            cookie.set('speech-token', region + ':' + token, {maxAge: 540, path: '/'});
+
+            console.log('Token fetched from back-end: ' + token + ' region:' + region);
+            return token;
+        } catch (err) {
+            console.log(err);
+            return '';
+        }
+    } else {
+        console.log('Token fetched from cookie: ' + speechToken);
+        const idx = speechToken.indexOf(':');
+        return  speechToken.slice(idx + 1);
+    }
+}
 
 function applyCommonConfigurationTo(recognizer: SpeechSDK.SpeechRecognizer,
                  onRecognized: (sender: SpeechSDK.Recognizer, event: SpeechSDK.SpeechRecognitionEventArgs) => void, 
@@ -113,4 +180,4 @@ function applyCommonConfigurationTo(recognizer: SpeechSDK.SpeechRecognizer,
    
   }
 
-export { getAudioConfig, getSpeechConfig, enumerateMicrophones, createSpeechRecognizer };
+export { getAudioConfig, getSpeechConfig, enumerateMicrophones, createSpeechRecognizer, createSpeechTranscriber, applyCommonConfigurationTo };
