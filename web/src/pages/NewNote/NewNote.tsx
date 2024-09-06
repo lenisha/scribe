@@ -14,6 +14,8 @@ import Tooltip from '@mui/material/Tooltip';
 import { FlexBox } from '@/components/styled';
 import { useState } from 'react';
 import { createSpeechTranscriber } from './speech_utils'
+import { generateSOAPNotes } from './prompt_utils';
+
 import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk';
 
 
@@ -23,7 +25,7 @@ function NewNote() {
   const [soapText, setSoapText] = useState('');
   const [currentText, setCurrentText] = useState('');
   const [transcriber, setTranscriber] = useState<SpeechSDK.ConversationTranscriber | null>(null);
-  const [token, setToken] = useState('')
+
 
 
 
@@ -93,6 +95,7 @@ function NewNote() {
       
       setCurrentText('');
       setNoteText('');
+      setSoapText('');
 
     } else {
       console.error('Failed to create recognizer.');
@@ -114,6 +117,19 @@ function NewNote() {
       stopDictation();
     } else {
       startContinuosDictation();
+    }
+  };
+
+  const handleAIGenerate = async () => {
+    setSoapText('Generating the note.Please wait...');
+    if (noteText === '') {
+      console.log('No text to generate SOAP note');
+      alert('No text to generate SOAP note');
+    
+    } else {
+      console.log('Generating SOAP note from text');
+      let soap_note = await generateSOAPNotes(noteText);
+      setSoapText(soap_note);
     }
   };
 
@@ -156,6 +172,7 @@ function NewNote() {
                     <Tooltip title="AI Generate SOAP" arrow>
                         <Button variant="contained" color="primary" 
                                 sx={{ alignSelf: 'center', marginLeft: 'auto' }}
+                                onClick={handleAIGenerate}
                                 endIcon={<KeyboardArrowRightIcon/>}>
                           AI Generate
                         </Button>
@@ -175,6 +192,7 @@ function NewNote() {
                     rows={20}
                     variant="outlined"
                     fullWidth
+                    value={soapText}
                     sx={{ height: '100%' , overflow: 'auto'  }}
                   />
                 </CardContent>

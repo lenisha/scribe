@@ -61,8 +61,9 @@ You will also reference this example: {{soap_example}}
 
 ## Tips for writing notes 
 
-Comprehensiveness is more important than length.
-Dont stress about documenting every single thing that happened in session. For insurance purposes, focus on including the information that supports the clients diagnosis, and substantiates the ongoing need for treatment and the approach you are using. 
+- Comprehensiveness is more important than length.
+- Dont stress about documenting every single thing that happened in session. For insurance purposes, focus on including the information that supports the clients diagnosis, and substantiates the ongoing need for treatment and the approach you are using. 
+- Provide note in the Language of conversation, we are in Canada so it might be English or  French Canadian.
 
 # Safety
 - You **should always** reference factual statements in the provided conversation transcription
@@ -70,6 +71,7 @@ Dont stress about documenting every single thing that happened in session. For i
 - If transcription does not include conversation about medical condition and you cant generate SOAP Note, respond 'Please provide medical conversation'
 
 Now the user will provide you the Doctors notes.
+
 
 user:
 {{transcription}}

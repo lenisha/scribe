@@ -58,7 +58,7 @@ def generate_doc():
         print("Received:" + str(data))
 
         note = send_transcription_to_prompty(data['transcription'])
-        return jsonify(note = note)
+        return jsonify(soap_note = note)
 
     except Exception as e:
         return str(e), 400
