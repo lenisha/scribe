@@ -4,30 +4,56 @@ import Meta from '@/components/Meta';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { TextField, Button, Box } from '@mui/material';
+import { TextField, Button, Box, Autocomplete } from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 import CardActions from '@mui/material/CardActions';
 import Tooltip from '@mui/material/Tooltip';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { FlexBox } from '@/components/styled';
-import { useState } from 'react';
-import { createSpeechTranscriber } from './speech_utils'
+import { useState, useEffect } from 'react';
+import { createSpeechTranscriber,enumerateMicrophones } from './speech_utils'
 import { generateSOAPNotes } from './prompt_utils';
 
 import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk';
+import { Language } from '@mui/icons-material';
 
 
 function NewNote() {
   const [isTranscribing, setIsTranscribing] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [noteText, setNoteText] = useState('');
   const [soapText, setSoapText] = useState('');
   const [currentText, setCurrentText] = useState('');
   const [transcriber, setTranscriber] = useState<SpeechSDK.ConversationTranscriber | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('en-CA');
+  const [selectedMic, setSelectedMic] = useState<string>('');
+  const [microphones, setMicrophones] = useState<{ label: string, deviceId: string }[]>([]);
 
+  useEffect(() => {
+    const browserLanguage = navigator.language;
+    console.log("Browser Language: ", browserLanguage);
+    if (browserLanguage === 'fr-CA') {
+      setSelectedLanguage('fr-CA');
+    } else {
+      setSelectedLanguage('en-CA');
+    }
+  }, []);
 
+  useEffect(() => {
+    const fetchMicrophones = async () => {
+      const mics = await enumerateMicrophones();
+      setMicrophones(mics);
+    };
 
+    fetchMicrophones();
+  }, []);
+
+  const defaultLanguages = ['en-CA',  'fr-CA'];
 
   function onRecognizing(recognitionEventArgs: SpeechSDK.ConversationTranscriptionEventArgs)  {
       var result = recognitionEventArgs.result;
@@ -79,7 +105,7 @@ function NewNote() {
   const startContinuosDictation = async () => {
     
     // Create the SpeechRecognizer and set up common event handlers and PhraseList data
-    const transcriber = await createSpeechTranscriber();
+    const transcriber = await createSpeechTranscriber(selectedLanguage, selectedMic);
     if (transcriber) {
 
       transcriber.transcribing = (s, e) =>   onRecognizing(e);
@@ -121,15 +147,21 @@ function NewNote() {
   };
 
   const handleAIGenerate = async () => {
-    setSoapText('Generating the note.Please wait...');
+    
     if (noteText === '') {
       console.log('No text to generate SOAP note');
       alert('No text to generate SOAP note');
     
     } else {
+
+      setIsGenerating(true);
       console.log('Generating SOAP note from text');
+      
+      setSoapText('Generating the note.Please wait...');
       let soap_note = await generateSOAPNotes(noteText);
       setSoapText(soap_note);
+
+      setIsGenerating(false);
     }
   };
 
@@ -159,20 +191,72 @@ function NewNote() {
                   />
                  </CardContent>
                 <CardActions sx={{ m:2 }}>
-                    <FlexBox sx={{ alignItems: 'center' }}>
-                    <Tooltip title={isTranscribing ? "Stop" : "Start"} arrow>
-                      <Button variant="contained" 
-                              color={isTranscribing ? "warning" : "primary"}
-                              startIcon={isTranscribing ?<MicOffIcon/> :<MicIcon />} 
-                              onClick={handleMicButtonClick}>
-                        {isTranscribing ? "Stop Transcription" : "Start Transcription"}
-                      </Button>
-                    </Tooltip>
+
+                    <FlexBox sx={{ alignItems: 'center', gap:2}}>
+                      <Tooltip title={isTranscribing ? "Stop" : "Start"} arrow>
+                        <Button variant="contained" 
+                                color={isTranscribing ? "warning" : "primary"}
+                                startIcon={isTranscribing ?<MicOffIcon/> :<MicIcon />} 
+                                onClick={handleMicButtonClick}>
+                          {isTranscribing ? "Stop Transcription" : "Start Transcription"}
+                        </Button>
+                      </Tooltip>
+                     
+                      <FormControl sx={{ m: 1, minWidth: 80 ,maxWidth: 150}}>
+                          <InputLabel id="microphone-select-label">Microphone</InputLabel>
+                          <Select
+                              labelId="microphone-select-label"
+                              id="microphone-select"
+                              value={selectedMic}
+                              onChange={(event: any) => {
+                                setSelectedMic(event.target.value as string);
+                              }}
+                              size='small'
+                              autoWidth
+                              label="Microphone"
+                            >
+                              {microphones.map((mic) => (
+                                <MenuItem
+                                  key={mic.deviceId}
+                                  value={mic.deviceId}
+                                >
+                                  {mic.label || mic.deviceId}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                        </FormControl>
+                      
+                      <FormControl sx={{ m: 1, minWidth: 80 }}>
+                          <InputLabel id="demo-simple-select-autowidth-label">Language</InputLabel>
+                          <Select
+                                value={selectedLanguage}
+                                onChange={(event: any) => {
+                                    setSelectedLanguage(event.target.value as string);
+                                }}
+                                size='small'
+                                autoWidth
+                                label="Language">
+
+                              {defaultLanguages.map((lang) => (
+                                  <MenuItem
+                                    key={lang}
+                                    value={lang}
+                                  >
+                                    {lang}
+                                  </MenuItem>
+                              ))}
+                           
+                          </Select>
+                        </FormControl>
+                      
                     </FlexBox>
                     <Tooltip title="AI Generate SOAP" arrow>
-                        <Button variant="contained" color="primary" 
+                        <Button variant="contained" 
                                 sx={{ alignSelf: 'center', marginLeft: 'auto' }}
+                                disabled={isGenerating}
+                                color={isGenerating ? "warning" : "primary"}
                                 onClick={handleAIGenerate}
+        
                                 endIcon={<KeyboardArrowRightIcon/>}>
                           AI Generate
                         </Button>

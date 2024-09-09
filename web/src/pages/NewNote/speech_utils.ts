@@ -15,25 +15,26 @@ async function createSpeechRecognizer( ) : Promise<SpeechSDK.SpeechRecognizer | 
    
 }
 
-async function createSpeechTranscriber( ) : Promise<SpeechSDK.ConversationTranscriber | null>  {
-    var audioConfig = getAudioConfig();
+async function createSpeechTranscriber(language?: string, deviceMic?: string) : Promise<SpeechSDK.ConversationTranscriber | null>  {
+    var audioConfig = getAudioConfig(deviceMic);
     var speechConfig = await getSpeechConfig(SpeechSDK.SpeechConfig);
     if (!speechConfig) {
         console.error('Failed to create speech config.');
         return null;
     }
+    speechConfig.speechRecognitionLanguage = language ? language: "en-US";
     // Create the SpeechRecognizer and set up common event handlers and PhraseList data
     return new SpeechSDK.ConversationTranscriber(speechConfig, audioConfig);
    
 }
 
-function getAudioConfig() {
+function getAudioConfig(deviceMic?: string) {
     // If an audio file was specified, use it. Otherwise, use the microphone.
     // Depending on browser security settings, the user may be prompted to allow microphone use. Using
     // continuous recognition allows multiple phrases to be recognized from a single use authorization.
-    let microphoneSources = enumerateMicrophones();
-    if (microphoneSources) {
-        return SpeechSDK.AudioConfig.fromMicrophoneInput(microphoneSources[0]);
+   
+    if (deviceMic) {
+        return SpeechSDK.AudioConfig.fromMicrophoneInput(deviceMic);
     } else {
         return SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
     }
@@ -49,6 +50,7 @@ async function getSpeechConfig(sdkConfigType: typeof SpeechSDK.SpeechConfig) {
     if (config.api.baseUrl) {
         console.log('Using custom base URL to get token: ' + config.api.baseUrl);
         const authorizationToken =  await getTokenOrRefresh();
+
         if (!authorizationToken) {
             console.error('Failed to get token from back-end.');
             alert("Please validate your backend configuration.");
@@ -73,7 +75,7 @@ async function getSpeechConfig(sdkConfigType: typeof SpeechSDK.SpeechConfig) {
     }
     
     speechConfig.outputFormat = SpeechSDK.OutputFormat.Simple;
-    speechConfig.speechRecognitionLanguage = "en-US";
+    
     return speechConfig;
 }
 
@@ -81,15 +83,16 @@ async function getSpeechConfig(sdkConfigType: typeof SpeechSDK.SpeechConfig) {
 
 
 
-function enumerateMicrophones() {
-    let microphoneSources: string[] = [];
+async function enumerateMicrophones(): Promise<{ label: string, deviceId: string }[]> {
+    let microphoneSources: { label: string, deviceId: string }[] = [];
 
     if (!navigator || !navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
         console.log(`Unable to query for audio input devices. Default will be used.\r\n`);
-        return;
+        return microphoneSources;
     }
 
-    navigator.mediaDevices.enumerateDevices().then((devices) => {
+    try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
 
         // Not all environments will be able to enumerate mic labels and ids. All environments will be able
         // to select a default input, assuming appropriate permissions.
@@ -99,20 +102,20 @@ function enumerateMicrophones() {
                     window.console.log(
                         `Warning: unable to enumerate a microphone deviceId. This may be due to limitations`
                         + ` with availability in a non-HTTPS context per mediaDevices constraints.`); 
-                }
-                else {
-                    var opt = document.createElement('option');
-                   console.log("Device found:" + device.deviceId)
-                   console.log("Device label:" + device.label);
+                } else {
+                    console.log("Device found:" + device.deviceId);
+                    console.log("Device label:" + device.label);
 
-                    microphoneSources.push(device.deviceId);
+                    microphoneSources.push({ label: device.label, deviceId: device.deviceId });
                 }
             }
         }
-
-    });
+    } catch (error) {
+        console.error('Error enumerating devices:', error);
+    }
     return microphoneSources;
 }
+
 
 async function getTokenOrRefresh() : Promise<string> {
     const cookie = new Cookie();
