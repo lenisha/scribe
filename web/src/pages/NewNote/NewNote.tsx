@@ -146,6 +146,7 @@ function NewNote() {
     }
   };
 
+
   const handleAIGenerate = async () => {
     
     if (noteText === '') {
@@ -158,7 +159,7 @@ function NewNote() {
       console.log('Generating SOAP note from text');
       
       setSoapText('Generating the note.Please wait...');
-      let soap_note = await generateSOAPNotes(noteText);
+      let soap_note = await generateSOAPNotes(noteText, selectedLanguage);
       setSoapText(soap_note);
 
       setIsGenerating(false);
@@ -212,6 +213,7 @@ function NewNote() {
                                 setSelectedMic(event.target.value as string);
                               }}
                               size='small'
+                              disabled={isTranscribing || isGenerating}
                               autoWidth
                               label="Microphone"
                             >
@@ -235,6 +237,7 @@ function NewNote() {
                                 }}
                                 size='small'
                                 autoWidth
+                                disabled={isTranscribing || isGenerating}
                                 label="Language">
 
                               {defaultLanguages.map((lang) => (
@@ -256,7 +259,7 @@ function NewNote() {
                                 disabled={isGenerating}
                                 color={isGenerating ? "warning" : "primary"}
                                 onClick={handleAIGenerate}
-        
+                                
                                 endIcon={<KeyboardArrowRightIcon/>}>
                           AI Generate
                         </Button>

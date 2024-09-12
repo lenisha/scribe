@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import config from "@/services/config";
 
-async function generateSOAPNotes(transcription: string) : Promise<string> {
+async function generateSOAPNotes(transcription: string, language: string) : Promise<string> {
 
     if (transcription === undefined || transcription === null || transcription === '') 
         return '';
@@ -10,7 +10,8 @@ async function generateSOAPNotes(transcription: string) : Promise<string> {
          
         const res = await axios.post(config.api.baseUrl + '/api/generate-doc',
             {
-             "transcription": transcription
+             "transcription": transcription,
+             "language": language
             }, 
             {
                 headers: {

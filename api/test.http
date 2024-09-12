@@ -2,6 +2,21 @@ POST http://localhost:8000/api/generate-doc HTTP/1.1
 content-type: application/json
 
 {
+    "language": "en-CA",
     "transcription": 
         "[Speaker 1]: Good Morning, doctor. May I come in?\n    [Speaker 2]: Good Morning. How are you? You do look quite pale this morning.\n[Speaker 1]: Yes, doctor. I've not been feeling well for the past few days. I've been having a stomach ache for a few days and feeling a bit dizzy since yesterday.\n[Speaker 2]: Okay, let me check. (applies pressure on the stomach and checks for pain) Does it hurt here?\n[Speaker 1]: Yes, doctor, the pain there is the sharpest.\n[Speaker 2]: Well, you are suffering from a stomach infection, that's the reason you are having a stomach ache and also getting dizzy. Did you change your diet recently or have something unhealthy?\n[Speaker 1]: Actually, I went to a fair last week and ate food from the stalls there.\n[Speaker 2]: Okay, so you are probably suffering from food poisoning. Since the food stalls in fairs are quite unhygienic, there's a high chance those uncovered food might have caused food poisoning.\n[Speaker 1]: I think I will never eat from any unhygienic place in the future.\n[Speaker 2]: That's good. I'm prescribing some medicines, have them for one week and come back for a checkup next week. And please try to avoid spicy and fried foods for now.\n[Speaker 1]: Okay, doctor, thank you.\n[Speaker 2]: Welcome."
+
+}
+
+
+
+
+###
+
+POST http://localhost:8000/api/generate-doc HTTP/1.1
+Content-Type: application/json
+
+{
+    "language":"fr-CA",
+    "transcription": "Patient: Bonjour, docteur. Puis-je entrer? Docteur: Bonjour. Comment allez-vous? Vous avez l'air assez pâle ce matin. Patient: Oui, docteur. Je ne me sens pas bien depuis quelques jours. J'ai mal au ventre depuis quelques jours et je me sens un peu étourdi depuis hier. Docteur: D'accord, laissez-moi vérifier. (applique une pression sur l'estomac et vérifie la douleur) Est-ce que ça fait mal ici? Patient: Oui, docteur, la douleur est la plus forte à cet endroit. Docteur: Eh bien, vous souffrez d'une infection à l'estomac, c'est pourquoi vous avez mal au ventre et vous vous sentez étourdi. Avez-vous changé votre alimentation récemment ou mangé quelque chose de malsain? Patient: En fait, je suis allé à une foire la semaine dernière et j'ai mangé de la nourriture des stands là-bas. Docteur: D'accord, vous souffrez probablement d'une intoxication alimentaire. Comme les stands de nourriture dans les foires ne sont pas très hygiéniques, il y a de fortes chances que ces aliments non couverts aient causé une intoxication alimentaire. Patient: Je pense que je ne mangerai plus jamais dans un endroit non hygiénique à l'avenir. Docteur: C'est bien. Je vais vous prescrire des médicaments, prenez-les pendant une semaine et revenez pour un contrôle la semaine prochaine. Et essayez d'éviter les aliments épicés et frits pour le moment. Patient: D'accord, docteur, merci. Docteur: De rien."
 }
