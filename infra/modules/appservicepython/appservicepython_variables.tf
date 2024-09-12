@@ -29,10 +29,6 @@ variable "identity" {
   default     = []
 }
 
-variable "app_command_line" {
-  description = "The cmd line to configure the app to run."
-  type        = string
-}
 
 variable "tags" {
   description = "A list of tags used for deployed services."
@@ -65,5 +61,5 @@ variable "use_32_bit_worker" {
 variable "health_check_path" {
   description = "The path to the health check endpoint"
   type        = string
-  default     = ""
+  default     = "/"
 }

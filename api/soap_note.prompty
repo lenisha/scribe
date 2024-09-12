@@ -48,6 +48,8 @@ Here is example of SOAP notes:
 - Make sure to translate and generate SOAP note to French Canadian if language is set to 'fr-CA'
 - Client Name try to extract from conversation
 
+(Never come up with your own patient details, assessment, plan, interventions, evaluation, and plan for continuing care - use only the transcript, contextual notes or clinical note as a reference for the information include in your note.)
+
 Now the user will provide you the Doctors notes.
 
 

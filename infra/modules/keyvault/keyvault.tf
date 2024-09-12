@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     azurerm = {
-      version = "~>3.97.1"
+    version = "~>4.1.0"
       source  = "hashicorp/azurerm"
     }
     azurecaf = {
@@ -10,7 +10,6 @@ terraform {
     }
   }
 }
-
 data "azurerm_client_config" "current" {}
 # ------------------------------------------------------------------------------------------------------
 # DEPLOY AZURE KEYVAULT

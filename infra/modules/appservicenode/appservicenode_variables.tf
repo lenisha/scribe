@@ -65,5 +65,5 @@ variable "use_32_bit_worker" {
 variable "health_check_path" {
   description = "The path to the health check endpoint"
   type        = string
-  default     = ""
+  default     = "/"
 }

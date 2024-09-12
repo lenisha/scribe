@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     azurerm = {
-      version = "~>3.97.1"
+    version = "~>4.1.0"
       source  = "hashicorp/azurerm"
     }
     azurecaf = {
@@ -36,7 +36,7 @@ resource "azurerm_linux_web_app" "web" {
     application_stack {
       node_version = var.node_version
     }
-    health_check_path = var.health_check_path
+    #health_check_path = var.health_check_path
   }
 
   app_settings = var.app_settings

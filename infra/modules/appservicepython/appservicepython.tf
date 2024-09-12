@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     azurerm = {
-      version = "~>3.97.1"
+    version = "~>4.1.0"
       source  = "hashicorp/azurerm"
     }
     azurecaf = {
@@ -32,11 +32,11 @@ resource "azurerm_linux_web_app" "web" {
     always_on         = var.always_on
     use_32_bit_worker = var.use_32_bit_worker
     ftps_state        = "FtpsOnly"
-    app_command_line  = var.app_command_line
+   # app_command_line  = var.app_command_line
     application_stack {
       python_version = var.python_version
     }
-    health_check_path = var.health_check_path
+    #health_check_path = var.health_check_path
   }
 
   app_settings = var.app_settings

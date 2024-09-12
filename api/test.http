@@ -9,8 +9,6 @@ content-type: application/json
 }
 
 
-
-
 ###
 
 POST http://localhost:8000/api/generate-doc HTTP/1.1
