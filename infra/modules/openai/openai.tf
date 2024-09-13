@@ -21,7 +21,7 @@ data "azurerm_client_config" "current" {}
 # DEPLOY AZURE OPENAI RESOURCE
 # ------------------------------------------------------------------------------------------------------
 resource "azurerm_cognitive_account" "openaimodels" {
-  name                = var.resource_token
+  name                = format("oai-%s", var.resource_token)
   location            = var.location
   resource_group_name = var.rg_name
   kind                = "OpenAI"

@@ -50,6 +50,8 @@ module "loganalytics" {
 # ------------------------------------------------------------------------------------------------------
 # Deploy OpenAI
 # ------------------------------------------------------------------------------------------------------
+
+
 module "openai" {
   source         = "./modules/openai"
   location       = var.location
@@ -115,7 +117,7 @@ module "api" {
   appservice_plan_id = module.appserviceplan.APPSERVICE_PLAN_ID
   app_settings = {
     "AZURE_OPENAI_API_KEY"                   = module.openai.openai_key
-    "AZURE_OPENAI_DEPLOYMENT"                = module.openai.gpt4_deployment_id
+    "AZURE_OPENAI_DEPLOYMENT"                = module.openai.gpt4_deployment_name
     "AZURE_OPENAI_ENDPOINT"                  = module.openai.openai_endpoint
     "SPEECH_KEY"                             = module.speech.speech_key
     "SPEECH_REGION"                          = var.location

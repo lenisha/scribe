@@ -10,3 +10,7 @@ output "gpt4_deployment_id" {
   value = azurerm_cognitive_deployment.gtp4.id
 }
 
+output "gpt4_deployment_name" {
+  value = azurerm_cognitive_deployment.gtp4.name
+}
+

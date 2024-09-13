@@ -40,3 +40,11 @@ services:
     project: ./api
     language: py
     host: appservice
+    hooks:
+      prepackage:
+        windows:
+          shell: pwsh
+          run: 'mv .env .env.backup'
+        posix:
+          shell: sh
+          run: 'if [ -f .env ]; then mv .env .env_backup; fi'
