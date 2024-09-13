@@ -44,13 +44,13 @@ resource "azurerm_cognitive_deployment" "gtp4" {
   cognitive_account_id = azurerm_cognitive_account.openaimodels.id
   model {
     format  = "OpenAI"
-    name    = "gpt-4o"
-    version = "2024-05-13"
+    name    = var.openai_model
+    version = var.openai_version
   }
 
   sku {
     name = "Standard"
-    capacity = "100"
+    capacity = var.openai_capacity
   }
 
 

@@ -1,7 +1,7 @@
 locals {
   tags                         = { azd-env-name : var.environment_name }
   sha                          = base64encode(sha256("${var.environment_name}${var.location}${data.azurerm_client_config.current.subscription_id}"))
-  resource_token               = substr(replace(lower(local.sha), "[^A-Za-z0-9_]", ""), 0, 13)
+  resource_token               = "en777" #substr(replace(lower(local.sha), "[^A-Za-z0-9_]", ""), 0, 13)
   cors                         = "*"
 }
 # ------------------------------------------------------------------------------------------------------

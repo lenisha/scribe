@@ -28,7 +28,7 @@ services:
           run: 'echo "VITE_API_BASE_URL=""$env:API_BASE_URL""" > .env.local ; echo "VITE_APPLICATIONINSIGHTS_CONNECTION_STRING=""$env:APPLICATIONINSIGHTS_CONNECTION_STRING""" >> .env.local'
         posix:
           shell: sh
-          run: 'echo VITE_API_BASE_URL=\"$API_BASE_URL\" > .env.local && echo VITE_APPLICATIONINSIGHTS_CONNECTION_STRING=\"$APPLICATIONINSIGHTS_CONNECTION_STRING\" >> .env.local'    
+          run: 'echo VITE_API_BASE_URL=\"$API_BASE_URL\" > .env.local && echo VITE_SPEECH_REGION=\"$AZURE_LOCATION\" >> .env.local &&  echo VITE_APPLICATIONINSIGHTS_CONNECTION_STRING=\"$APPLICATIONINSIGHTS_CONNECTION_STRING\" >> .env.local'    
       postdeploy:
         windows:
           shell: pwsh

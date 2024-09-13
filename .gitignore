@@ -33,3 +33,13 @@ dist-ssr
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Terraform 
+.terraform/
+*.tfstate
+*.tfstate.*
+*.hcl
+*.tfvars
+*.tfplan
+
+*__pycache__

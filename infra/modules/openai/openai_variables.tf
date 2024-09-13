@@ -17,3 +17,23 @@ variable "resource_token" {
   description = "A suffix string to centrally mitigate resource name collisions."
   type        = string
 }
+
+variable "openai_model" {
+  description = "Name of gpt model."
+  type        = string
+  default     = "gpt-4o"
+}
+
+
+variable "openai_version" {
+  description = "Version of gpt model"
+  type        = string
+  default     = "2024-05-13"
+}
+
+
+variable "openai_capacity" {
+  description = "Capacity of gpt model"
+  type        = string
+  default     = "100"
+}
