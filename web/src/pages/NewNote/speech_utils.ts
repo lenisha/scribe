@@ -129,14 +129,14 @@ async function getTokenOrRefresh() : Promise<string> {
             const region = res.data.region;
             cookie.set('speech-token', region + ':' + token, {maxAge: 540, path: '/'});
 
-            console.log('Token fetched from back-end: ' + token + ' region:' + region);
+            console.log('Token fetched from back-end: ' + token.slice(-10) + ' region:' + region);
             return token;
         } catch (err) {
             console.log(err);
             return '';
         }
     } else {
-        console.log('Token fetched from cookie: ' + speechToken);
+        console.log('Token fetched from cookie: ' + speechToken.slice(-10));
         const idx = speechToken.indexOf(':');
         return  speechToken.slice(idx + 1);
     }
