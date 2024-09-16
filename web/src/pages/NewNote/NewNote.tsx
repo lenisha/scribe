@@ -104,6 +104,7 @@ function NewNote() {
 
   const startContinuosDictation = async () => {
     
+    console.log(`Starting continuous dictation ${selectedMic} ${selectedLanguage}`);
     // Create the SpeechRecognizer and set up common event handlers and PhraseList data
     const transcriber = await createSpeechTranscriber(selectedLanguage, selectedMic);
     if (transcriber) {

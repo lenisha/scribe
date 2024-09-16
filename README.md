@@ -7,6 +7,9 @@ Dictate, Transcribe and Summarize as SOAP Notes
 
 ![Arch](docs/arch.png)
 
+# UI
+
+![UI](docs/ui.png)
 
 ## Deploy
 
