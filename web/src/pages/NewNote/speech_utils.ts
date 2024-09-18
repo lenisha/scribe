@@ -44,19 +44,20 @@ async function getSpeechConfig(sdkConfigType: typeof SpeechSDK.SpeechConfig) {
     var speechConfig;
     
     let key =  config.api.key;
-    let region = config.api.region;
+
 
     // If a custom base URL is specified, use it to get the token from the back-end
     if (config.api.baseUrl) {
         console.log('Using custom base URL to get token: ' + config.api.baseUrl);
-        const authorizationToken =  await getTokenOrRefresh();
-
-        if (!authorizationToken) {
+        const { token, region } = await getTokenOrRefresh();
+        // Now you can use both token and region
+        console.log(`Retrieved Token: ${token.slice(0,4)}, Region: ${region}`);
+        if (!token) {
             console.error('Failed to get token from back-end.');
             alert("Please validate your backend configuration.");
             return undefined;
         }
-        speechConfig = sdkConfigType.fromAuthorizationToken(authorizationToken, region);
+        speechConfig = sdkConfigType.fromAuthorizationToken(token, region);
         if (!speechConfig) {
             console.error('Failed to create speech config.');
             alert("Please validate your backend configuration.");
@@ -70,6 +71,7 @@ async function getSpeechConfig(sdkConfigType: typeof SpeechSDK.SpeechConfig) {
         alert("Please enter your Cognitive Services Speech subscription key!");
         return undefined;
     } else {
+        let region = config.api.region;
         console.log(`Connecting using key and reion: ${key.slice(0,4)} ${region}`);
         speechConfig = sdkConfigType.fromSubscription(key, region);
     }
@@ -117,7 +119,7 @@ async function enumerateMicrophones(): Promise<{ label: string, deviceId: string
 }
 
 
-async function getTokenOrRefresh() : Promise<string> {
+async function getTokenOrRefresh() : Promise<{ token: string, region: string }>  {
     const cookie = new Cookie();
     const speechToken = cookie.get('speech-token');
 
@@ -130,15 +132,17 @@ async function getTokenOrRefresh() : Promise<string> {
             cookie.set('speech-token', region + ':' + token, {maxAge: 540, path: '/'});
 
             console.log('Token fetched from back-end: ' + token.slice(-10) + ' region:' + region);
-            return token;
+            return { token, region };
         } catch (err) {
             console.log(err);
-            return '';
+            return { token: '', region: '' };
         }
     } else {
         console.log('Token fetched from cookie: ' + speechToken.slice(-10));
         const idx = speechToken.indexOf(':');
-        return  speechToken.slice(idx + 1);
+        const token = speechToken.slice(idx + 1);
+        const region = speechToken.slice(0, idx);
+        return { token, region };
     }
 }
 
