@@ -25,3 +25,10 @@ variable "apimSKU" {
   type       = string
   default = "Consumption"
 }
+
+
+variable "rg_name" {
+  description = "RG that exists"
+  type       = string
+  default = ""
+}

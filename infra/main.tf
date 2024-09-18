@@ -7,19 +7,24 @@ locals {
 # ------------------------------------------------------------------------------------------------------
 # Deploy resource Group
 # ------------------------------------------------------------------------------------------------------
-resource "azurecaf_name" "rg_name" {
-  name          = var.environment_name
-  resource_type = "azurerm_resource_group"
-  random_length = 0
-  clean_input   = true
+#resource "azurecaf_name" "rg_name" {
+#  name          = var.environment_name
+#  resource_type = "azurerm_resource_group"
+#  random_length = 0
+#  clean_input   = true
+#}
+
+#resource "azurerm_resource_group" "rg" {
+#  name     = azurecaf_name.rg_name.result
+#  location = var.location
+#
+#  tags = local.tags
+#}
+
+data "azurerm_resource_group" "rg" {
+  name = var.rg_name
 }
 
-resource "azurerm_resource_group" "rg" {
-  name     = azurecaf_name.rg_name.result
-  location = var.location
-
-  tags = local.tags
-}
 
 # ------------------------------------------------------------------------------------------------------
 # Deploy application insights
@@ -27,7 +32,7 @@ resource "azurerm_resource_group" "rg" {
 module "applicationinsights" {
   source           = "./modules/applicationinsights"
   location         = var.location
-  rg_name          = azurerm_resource_group.rg.name
+  rg_name          = data.azurerm_resource_group.rg.name
   environment_name = var.environment_name
   workspace_id     = module.loganalytics.LOGANALYTICS_WORKSPACE_ID
   tags             = azurerm_resource_group.rg.tags
@@ -40,7 +45,7 @@ module "applicationinsights" {
 module "loganalytics" {
   source         = "./modules/loganalytics"
   location       = var.location
-  rg_name        = azurerm_resource_group.rg.name
+  rg_name        = data.azurerm_resource_group.rg.name
   tags           = azurerm_resource_group.rg.tags
   resource_token = local.resource_token
 }
@@ -55,7 +60,7 @@ module "loganalytics" {
 module "openai" {
   source         = "./modules/openai"
   location       = var.location
-  rg_name        = azurerm_resource_group.rg.name
+  rg_name        = data.azurerm_resource_group.rg.name
   tags           = azurerm_resource_group.rg.tags
   resource_token = local.resource_token
 }
@@ -65,7 +70,7 @@ module "openai" {
 module "speech" {
   source         = "./modules/speech"
   location       = var.location
-  rg_name        = azurerm_resource_group.rg.name
+  rg_name        = data.azurerm_resource_group.rg.name
   tags           = azurerm_resource_group.rg.tags
   resource_token = local.resource_token
 }
@@ -76,7 +81,7 @@ module "speech" {
 module "appserviceplan" {
   source         = "./modules/appserviceplan"
   location       = var.location
-  rg_name        = azurerm_resource_group.rg.name
+  rg_name        = data.azurerm_resource_group.rg.name
   tags           = azurerm_resource_group.rg.tags
   resource_token = local.resource_token
   sku_name       = "B1"
@@ -88,7 +93,7 @@ module "appserviceplan" {
 module "web" {
   source         = "./modules/appservicenode"
   location       = var.location
-  rg_name        = azurerm_resource_group.rg.name
+  rg_name        = data.azurerm_resource_group.rg.name
   resource_token = local.resource_token
 
   tags               = merge(local.tags, { azd-service-name : "web" })
@@ -109,7 +114,7 @@ module "web" {
 module "api" {
   source         = "./modules/appservicepython"
   location       = var.location
-  rg_name        = azurerm_resource_group.rg.name
+  rg_name        = data.azurerm_resource_group.rg.name
   resource_token = local.resource_token
 
   tags               = merge(local.tags, { "azd-service-name" : "api" })
@@ -139,7 +144,7 @@ resource "null_resource" "api_set_allow_origins" {
   }
 
   provisioner "local-exec" {
-    command = "az webapp config appsettings set --resource-group ${azurerm_resource_group.rg.name} --name ${module.api.APPSERVICE_NAME} --settings API_ALLOW_ORIGINS=${module.web.URI}"
+    command = "az webapp config appsettings set --resource-group ${data.azurerm_resource_group.rg.name} --name ${module.api.APPSERVICE_NAME} --settings API_ALLOW_ORIGINS=${module.web.URI}"
   }
 }
 
