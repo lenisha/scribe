@@ -25,10 +25,20 @@ Dictate, Transcribe and Summarize as SOAP Notes
 
 ### Initialize Azure Developer CLI (azd)
 
+Changed scripts to install into existing Azure RG
+
+```
+export AZURE_RESOURCE_GROUP=<name of RG>
+```
+
+
 ```
 azd init
 ```
 ### Provision Azure Resources
+
+
+Verify RG in `.azure/<env>/.env
 
 ```
 azd provision

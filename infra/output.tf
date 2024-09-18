@@ -29,3 +29,7 @@ output "APPLICATIONINSIGHTS_CONNECTION_STRING" {
 output "SERVICE_API_ENDPOINTS" {
   value = module.api.URI 
 }
+
+output "AZURE_RESOURCE_GROUP" {
+  value = var.rg_name
+}
