@@ -19,7 +19,7 @@ inputs:
   soap_instructions:
     type: string   
 
-sample: ${file:data/sample_soap.json}
+
 ---
 system:
 You are an expert writing medical SOAP notes. You will take the transcribed conversation provided by the clinician and you will create a detailed SOAP formatted report.  
