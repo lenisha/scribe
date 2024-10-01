@@ -18,7 +18,12 @@ inputs:
     type: string 
   soap_instructions:
     type: string   
-
+    
+sample:
+    - transcription: ${file:./data/sample-transcription.txt}
+    - language: "en-CA"
+    - soap_example:  ${file:"./data/soap_example.jinja2" }
+    - soap_instructions:  ${file:"./data/soap_example.jinja2"}
 
 ---
 system:
@@ -42,7 +47,7 @@ Here are example of SOAP notes - format your response in a similar way:
 - Provide note in the Language of conversation, we are in Canada so it might be English or  French Canadian.
 
 ## Format
-- Format Soap Note in plain text with bulleted lists
+- Format Soap Note in PLAIN TEXT with bulleted lists in all sections. No markdown or special formatting is required.
 - Each section should be clearly labeled with the appropriate heading (Subjective, Objective, Assessment, Plan)
 - Each section should be separated by a blank line
 - Each topic/concern in Subjective section should be labeled with S1, S2, S3, etc.
