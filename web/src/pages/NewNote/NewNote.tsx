@@ -7,6 +7,7 @@ import { TextField, Button, Box, Snackbar } from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import PrintIcon from '@mui/icons-material/Print';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import CardActions from '@mui/material/CardActions';
 import Tooltip from '@mui/material/Tooltip';
@@ -17,7 +18,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { FlexBox } from '@/components/styled';
 import { useState, useEffect } from 'react';
 import { createSpeechTranscriber,enumerateMicrophones } from './speech_utils'
-import { generateSOAPNotes } from './prompt_utils';
+import { generateSOAPNotes, formatDate, generateHandout } from './prompt_utils';
 
 import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk';
 import { Language } from '@mui/icons-material';
@@ -26,8 +27,10 @@ import { Language } from '@mui/icons-material';
 function NewNote() {
   const [isTranscribing, setIsTranscribing] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isGeneratingHandout, setIsGeneratingHandout] = useState(false);
   const [noteText, setNoteText] = useState('');
   const [soapText, setSoapText] = useState('');
+  const [handoutText, setHandoutText] = useState('');
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [endTime, setEndTime] = useState<Date | null>(null);
   const [copySuccess, setCopySuccess] = useState(false);
@@ -172,6 +175,26 @@ function NewNote() {
     }
   };
 
+  const handleAIHandoutGenerate = async () => {
+    
+    if (soapText === '') {
+      console.log('No SOAP text to generate Handout');
+      alert('No text to generate Handout');
+    
+    } else {
+
+      setIsGeneratingHandout(true);
+      console.log('Generating Handout from text');
+      
+      setHandoutText('Generating the Handout.Please wait...');
+      let handout = await generateHandout(noteText, selectedLanguage);
+      setHandoutText(handout);
+
+      setIsGeneratingHandout(false);
+    }
+  };
+
+
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(soapText).then(() => {
       setCopySuccess(true);
@@ -179,6 +202,31 @@ function NewNote() {
     }).catch(err => {
       console.error('Failed to copy text: ', err);
     });
+  };
+
+  const handlePrint = () => {
+    if (handoutText) {
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.write(`
+          <html>
+            <head>
+              <title>Patient Handout</title>
+              <style>
+                body { font-family: Arial, sans-serif; padding: 20px; }
+              </style>
+            </head>
+            <body>
+              <h1>Patient Handout</h1>
+              <p>Regarding: Clinical encounter dated ${formatDate(startTime)} -  ${formatDate(endTime)} </p>
+              ${handoutText}
+            </body>
+          </html>
+        `);
+        printWindow.document.close();
+        printWindow.print();
+      }
+    }
   };
 
 
@@ -191,7 +239,7 @@ function NewNote() {
         </Box>
         <Box sx={{ flexDirection: 'row', display: 'flex', flexWrap: 'wrap', m:2, gap:2,  height: '90%' , width:'100%'}}>
             
-             <Card sx={{ width: '45%', height: '100%' }}>
+             <Card sx={{ width: '40%', height: '100%' }}>
                 <CardContent>
                   <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
                     Dictated Notes
@@ -282,46 +330,87 @@ function NewNote() {
               </Card> 
               
         
-            <Card sx={{ width: '45%', height: '100%' }}>
-            <CardContent>
-              <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-                SOAP Note
-              </Typography>
-              <TextField
-                multiline
-                rows={20}
-                variant="outlined"
-                fullWidth
-                value={soapText}
-                onChange={(e) => setSoapText(e.target.value)}
-                sx={{ height: '100%', overflow: 'auto' }}
-              />
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'flex-end', m: 2 }}>
-              <FlexBox sx={{ alignItems: 'center', gap: 2 }}>
-                <Tooltip title="Copy to clipboard" arrow>
-                  <Button
-                    sx={{ alignSelf: 'center', marginLeft: 'auto' }}
-                    variant="contained"
-                    color="primary"
-                    startIcon={<ContentCopyIcon />}
-                    onClick={handleCopyToClipboard}
-                  >
-                    Copy
-                  </Button>
-                </Tooltip>
-              </FlexBox>
-            </CardActions>
+            <Card sx={{ width: '30%', height: '100%' }}>
+              <CardContent>
+                <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+                  SOAP Note
+                </Typography>
+                <TextField
+                  multiline
+                  rows={20}
+                  variant="outlined"
+                  fullWidth
+                  value={soapText}
+                  onChange={(e) => setSoapText(e.target.value)}
+                  sx={{ height: '100%', overflow: 'auto' }}
+                />
+              </CardContent>
+              <CardActions sx={{ justifyContent: 'flex-end', m: 2 }}>
+                <FlexBox sx={{ alignItems: 'center', gap: 2 }}>
+                  <Tooltip title="Copy to clipboard" arrow>
+                    <Button
+                      sx={{ alignSelf: 'center', marginLeft: 'auto' }}
+                      variant="contained"
+                      color="primary"
+                      startIcon={<ContentCopyIcon />}
+                      onClick={handleCopyToClipboard}
+                    >
+                      Copy
+                    </Button>
+                  </Tooltip>
+                </FlexBox>
+              </CardActions>
 
-            <Snackbar
-              open={copySuccess}
-              message="Text copied to clipboard"
-              autoHideDuration={2000}
-              onClose={() => setCopySuccess(false)}
-            />
+              <Snackbar
+                open={copySuccess}
+                message="Text copied to clipboard"
+                autoHideDuration={2000}
+                onClose={() => setCopySuccess(false)}
+              />
           </Card>
-           
-         
+          
+          <Card sx={{ width: '25%', height: '100%' }}>
+              <CardContent>
+                <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+                  Patient Handout
+                </Typography>
+                <TextField
+                  multiline
+                  rows={20}
+                  variant="outlined"
+                  fullWidth
+                  value={handoutText}
+                  onChange={(e) => setHandoutText(e.target.value)}
+                  sx={{ height: '100%', overflow: 'auto' }}
+                />
+              </CardContent>  
+              <CardActions sx={{ m:2 }}>
+
+                <FlexBox sx={{ alignItems: 'center', gap:2}}>
+                  <Tooltip title="Generate Handout" arrow>
+                          <Button variant="contained" 
+                                  sx={{ alignSelf: 'center', marginLeft: 'auto' }}
+                                  disabled={isGeneratingHandout}
+                                  color={isGeneratingHandout ? "warning" : "primary"}
+                                  onClick={handleAIHandoutGenerate}                      
+                                  endIcon={<KeyboardArrowRightIcon/>}>
+                            Generate Handout
+                          </Button>
+                    </Tooltip>
+                
+                </FlexBox>
+                <Tooltip title="Print" arrow>
+                    <Button variant="contained" 
+                            sx={{ alignSelf: 'center', marginLeft: 'auto' }}
+                            disabled={isGeneratingHandout}
+                            color="primary"
+                            onClick={handlePrint}                      
+                            startIcon={<PrintIcon />}>
+                      Print
+                    </Button>
+                </Tooltip>
+                </CardActions>
+          </Card>
         </Box>    
       </Box>
     </>

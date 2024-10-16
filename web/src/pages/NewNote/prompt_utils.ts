@@ -20,11 +20,12 @@ async function generateSOAPNotes(transcription: string, language: string,
                 }
             }
         );
-        if (startTime && endTime) {
-            const timestamp = `${formatDate(startTime)} - ${formatDate(endTime)} (${formatDuration(startTime, endTime)})`;
-            return res.data.soap_note + '\n\n' + timestamp;
-        }
-        return res.data.soap_note;
+        startTime = startTime ? startTime : new Date();
+        endTime = endTime ?  endTime : new Date() ;
+    
+        const timestamp = `${formatDate(startTime)} - ${formatDate(endTime)} (${formatDuration(startTime, endTime)})`;
+        return res.data.soap_note + '\n\n' + timestamp;
+    
     } catch (err) {
         console.log(err);
         return '';
@@ -32,7 +33,34 @@ async function generateSOAPNotes(transcription: string, language: string,
     
 }
 
-const formatDate = (date: Date) => {
+async function generateHandout(soap_note: string, language: string ) : Promise<string> {
+
+    if (soap_note === undefined || soap_note === null || soap_note === '') 
+        return '';
+
+    try {
+         
+        const res = await axios.post(config.api.baseUrl + '/api/generate-handout',
+            {
+             "soap_note": soap_note,
+             "language": language
+            }, 
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        return res.data.handout;
+    } catch (err) {
+        console.log(err);
+        return '';
+    }
+    
+}
+
+const formatDate = (date: Date | null) => {
+    if (!date) return '';
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: '2-digit',
@@ -53,4 +81,4 @@ const formatDate = (date: Date) => {
     return `${hours}:${minutes}:${seconds}`;
   };
 
-export { generateSOAPNotes };
+export { generateSOAPNotes, formatDate, formatDuration, generateHandout };

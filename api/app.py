@@ -3,7 +3,7 @@ import os, requests
 from flask import Flask, render_template, jsonify, request
 from dotenv import load_dotenv
 from flask_cors import CORS
-from notes import send_transcription_to_prompty
+from notes import send_transcription_to_prompty, send_note_to_prompty
 
 # Load environment variables from .env file
 load_dotenv(override=True)
@@ -57,13 +57,27 @@ def generate_doc():
         data = request.json
         print("Received:" + str(data))
 
-        note = send_transcription_to_prompty(data['transcription'])
+        note = send_transcription_to_prompty(data['transcription'],data['language'])
         return jsonify(soap_note = note)
 
     except Exception as e:
         return str(e), 400
 
+###
+## Run Prompty OpenAPI: generate handout from SOAP note
+###
+@app.route('/api/generate-handout', methods=['POST'])
+def generate_handout():
 
+    try:
+        data = request.json
+        print("Received:" + str(data))
+
+        handout = send_note_to_prompty(data['soap_note'],data['language'])
+        return jsonify(handout = handout)
+
+    except Exception as e:
+        return str(e), 400
 
 if __name__ == '__main__':
    app.run(debug=True, port=8000, host='0.0.0.0')

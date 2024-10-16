@@ -36,3 +36,22 @@ def send_transcription_to_prompty(transcription, language="en-CA"):
                      soap_example = render_soap_jinja('./data/soap_example.jinja2'))
 
     return result
+
+
+# Define the function to send the transcription to Prompty
+def send_note_to_prompty(soap_note, language="en-CA"):
+
+    model_config = {
+        "configuration": AzureOpenAIModelConfiguration(
+           azure_deployment=OPENAI_MODEL
+        )
+    }
+
+    # start a trace session, and print a url for user to check trace
+    # start_trace()
+    # Load prompty definition from file
+    prompty = Prompty.load(source="soap_handout.prompty", model=model_config)
+    result = prompty(soap_note = soap_note,
+                     language = language)
+
+    return result
