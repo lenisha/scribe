@@ -20,11 +20,11 @@ inputs:
   soap_instructions:
     type: string   
     
-sample:
-    transcription: ${file:data/sample_transcription.txt}
-    language: "en-CA"
-    soap_example:  ${file:data/soap_example.jinja2}
-    soap_instructions:  ${file:data/soap_note.jinja2}
+#sample:
+#    transcription: ${file:data/sample_transcription.txt}
+#    language: "en-CA"
+#    soap_example:  ${file:data/soap_example.jinja2}
+#    soap_instructions:  ${file:data/soap_note.jinja2}
 
 ---
 system:
