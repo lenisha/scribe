@@ -1,12 +1,12 @@
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
 import Meta from '@/components/Meta';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { TextField, Button, Box, Autocomplete } from '@mui/material';
+import { TextField, Button, Box, Snackbar } from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import CardActions from '@mui/material/CardActions';
 import Tooltip from '@mui/material/Tooltip';
@@ -28,6 +28,9 @@ function NewNote() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [noteText, setNoteText] = useState('');
   const [soapText, setSoapText] = useState('');
+  const [startTime, setStartTime] = useState<Date | null>(null);
+  const [endTime, setEndTime] = useState<Date | null>(null);
+  const [copySuccess, setCopySuccess] = useState(false);
   const [currentText, setCurrentText] = useState('');
   const [transcriber, setTranscriber] = useState<SpeechSDK.ConversationTranscriber | null>(null);
   const [selectedLanguage, setSelectedLanguage] = useState<string>('en-CA');
@@ -123,6 +126,7 @@ function NewNote() {
       setCurrentText('');
       setNoteText('');
       setSoapText('');
+      setStartTime(new Date()); // Set start time
 
     } else {
       console.error('Failed to create recognizer.');
@@ -136,6 +140,7 @@ function NewNote() {
       transcriber.stopTranscribingAsync();
       transcriber.close();
       setTranscriber(null);
+      setEndTime(new Date()); // Set end time
     }
   };
 
@@ -160,13 +165,21 @@ function NewNote() {
       console.log('Generating SOAP note from text');
       
       setSoapText('Generating the note.Please wait...');
-      let soap_note = await generateSOAPNotes(noteText, selectedLanguage);
+      let soap_note = await generateSOAPNotes(noteText, selectedLanguage, startTime, endTime);
       setSoapText(soap_note);
 
       setIsGenerating(false);
     }
   };
 
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(soapText).then(() => {
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000); // Reset copy success after 2 seconds
+    }).catch(err => {
+      console.error('Failed to copy text: ', err);
+    });
+  };
 
 
   return (
@@ -177,6 +190,7 @@ function NewNote() {
           <Typography variant="h5" sx={{ gap: 2 , align:"center"}}>Dictate New Note</Typography>
         </Box>
         <Box sx={{ flexDirection: 'row', display: 'flex', flexWrap: 'wrap', m:2, gap:2,  height: '90%' , width:'100%'}}>
+            
              <Card sx={{ width: '45%', height: '100%' }}>
                 <CardContent>
                   <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
@@ -259,32 +273,53 @@ function NewNote() {
                                 sx={{ alignSelf: 'center', marginLeft: 'auto' }}
                                 disabled={isGenerating}
                                 color={isGenerating ? "warning" : "primary"}
-                                onClick={handleAIGenerate}
-                                
+                                onClick={handleAIGenerate}                      
                                 endIcon={<KeyboardArrowRightIcon/>}>
                           AI Generate
                         </Button>
                     </Tooltip>
                 </CardActions>
-                </Card> 
+              </Card> 
               
         
-            
-              <Card sx={{ width: '45%', height: '100%' }}>
-                <CardContent>
-                 <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-                    SOAP Note
-                  </Typography>
-                  <TextField
-                    multiline
-                    rows={20}
-                    variant="outlined"
-                    fullWidth
-                    value={soapText}
-                    sx={{ height: '100%' , overflow: 'auto'  }}
-                  />
-                </CardContent>
-                </Card> 
+            <Card sx={{ width: '45%', height: '100%' }}>
+            <CardContent>
+              <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+                SOAP Note
+              </Typography>
+              <TextField
+                multiline
+                rows={20}
+                variant="outlined"
+                fullWidth
+                value={soapText}
+                onChange={(e) => setSoapText(e.target.value)}
+                sx={{ height: '100%', overflow: 'auto' }}
+              />
+            </CardContent>
+            <CardActions sx={{ justifyContent: 'flex-end', m: 2 }}>
+              <FlexBox sx={{ alignItems: 'center', gap: 2 }}>
+                <Tooltip title="Copy to clipboard" arrow>
+                  <Button
+                    sx={{ alignSelf: 'center', marginLeft: 'auto' }}
+                    variant="contained"
+                    color="primary"
+                    startIcon={<ContentCopyIcon />}
+                    onClick={handleCopyToClipboard}
+                  >
+                    Copy
+                  </Button>
+                </Tooltip>
+              </FlexBox>
+            </CardActions>
+
+            <Snackbar
+              open={copySuccess}
+              message="Text copied to clipboard"
+              autoHideDuration={2000}
+              onClose={() => setCopySuccess(false)}
+            />
+          </Card>
            
          
         </Box>    
