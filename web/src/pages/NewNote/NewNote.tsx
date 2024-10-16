@@ -129,6 +129,7 @@ function NewNote() {
       setCurrentText('');
       setNoteText('');
       setSoapText('');
+      setHandoutText('');
       setStartTime(new Date()); // Set start time
 
     } else {
