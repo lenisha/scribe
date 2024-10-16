@@ -20,11 +20,11 @@ inputs:
   soap_instructions:
     type: string   
     
-#sample:
-#    transcription: ${file:data/sample_transcription.txt}
-#    language: "en-CA"
-#    soap_example:  ${file:data/soap_example.jinja2}
-#    soap_instructions:  ${file:data/soap_note.jinja2}
+sample:
+    transcription: ${file:data/sample_transcription.txt}
+    language: "en-CA"
+    soap_example:  ${file:data/soap_example.jinja2}
+    soap_instructions:  ${file:data/soap_note.jinja2}
 
 ---
 system:
@@ -53,6 +53,7 @@ Here are example of SOAP notes - format your response in a similar way:
 - Each section should be separated by a blank line
 - Subjective section should be organized by topic/concern that was discussed and **should** be labeled with S1, S2, S3, etc.
 - Plan section should be organized/grouped into subheadings corresponding to concern in Subjective section with the relevant points under each subheadings and these groupings **Should** ideally correlate and address all concerns from Subjective section. 
+- The objective, assessment and plan sections should also be organised with the related subheadings for each concern/topic 
 - If action item in the plan is not related to any concern in the subjective section, it should be listed under a more general heading for example "Follow-Up" or "Other" in the Plan section.
 
 
