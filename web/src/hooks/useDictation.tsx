@@ -13,7 +13,7 @@ import {
 } from '../utils/speech';
 
 export default function useDictation() {
-  const { selectedLanguage, updateStartTime, updateEndTime, updateNoteText, clearAllText } =
+  const { selectedLanguage, updateStartTime, updateEndTime, addNoteText, clearAllText } =
     useContext(NoteContext);
 
   const [isTranscribing, setIsTranscribing] = useState(false);
@@ -95,7 +95,7 @@ export default function useDictation() {
       case SpeechSDK.ResultReason.TranslatedSpeech:
       case SpeechSDK.ResultReason.RecognizedIntent:
         if (text && text.trim() !== '') {
-          updateNoteText(`[Speaker ${speakerId}]: ${text}` + '\r\n');
+          addNoteText(`[Speaker ${speakerId}]: ${text}` + '\r\n');
           setCurrentText('');
         }
         break;
