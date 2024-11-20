@@ -2,7 +2,7 @@ import isMobile from '@/utils/is-mobile';
 
 import type { Notifications } from './types';
 
-const title = 'React PWA';
+const title = 'AI Scribe';
 
 const email = 'auther-email@gmail.com';
 
@@ -32,8 +32,8 @@ const dateFormat = 'MMMM DD, YYYY';
 const notifications: Notifications = {
   options: {
     anchorOrigin: {
-      vertical: 'bottom',
-      horizontal: 'left',
+      vertical: 'top',
+      horizontal: 'right',
     },
     autoHideDuration: 6000,
   },
