@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Button, Card, Input, InputLabel, Modal, Typography } from '@mui/material';
+import { Button, Card, Checkbox, FormControlLabel, Modal, Typography } from '@mui/material';
 
 import { FlexBox, FullSizeCenteredFlexBox } from '../styled';
 
@@ -29,31 +29,32 @@ export default function ConsentModal({ isOpen, toggleModal, startRecording }: Co
       >
         <Card style={{ padding: '1rem', maxWidth: '30rem' }}>
           <FlexBox flex={'flex'} flexDirection={'column'}>
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: 'bold', marginTop: '1rem', marginBottom: '0.25rem' }}
-            >
+            <Typography variant="h5" fontWeight="bold" marginTop="1rem" marginBottom="0.25rem">
               Do you have patient consent?
             </Typography>
-            <Typography variant="body1" sx={{ margin: 0, marginBottom: '1rem' }}>
+            <Typography variant="body1" margin={0} marginBottom="1rem">
               Before beginning a transcription, you must confirm that you have the patient&apos;s
               consent.
             </Typography>
-            <FlexBox flexDirection={'row'} sx={{ marginBottom: '1rem' }}>
-              <Input
-                sx={{ marginRight: '0.5rem' }}
-                defaultChecked={consentChecked}
-                id="consent-checkbox"
-                name="consent-checkbox"
-                type="checkbox"
-                onChange={() => {
-                  setConsentChecked(!consentChecked);
-                }}
+            <FlexBox marginBottom="1rem">
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={() => {
+                      setConsentChecked(!consentChecked);
+                    }}
+                  />
+                }
+                label="I have the patient's consent"
               />
-              <InputLabel>I have the patient&apos;s consent</InputLabel>
             </FlexBox>
             <FlexBox justifyContent={'space-between'} alignItems={'center'} flexDirection={'row'}>
-              <Button sx={{ width: 'fit-content' }} onClick={handleClose}>
+              <Button
+                color="primary"
+                variant="outlined"
+                sx={{ width: 'fit-content' }}
+                onClick={handleClose}
+              >
                 Cancel
               </Button>
               <Button
