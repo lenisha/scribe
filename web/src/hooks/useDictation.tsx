@@ -72,7 +72,6 @@ export default function useDictation() {
     const result = recognitionEventArgs.result;
     const text = result.text;
     const speakerId = result.speakerId || 'Unknown';
-    console.log(`(recognizing) [Speaker ${speakerId}]: ${text}`);
     setCurrentText(`[Speaker ${speakerId}]: ${text}`);
   }
 
@@ -80,11 +79,6 @@ export default function useDictation() {
     const result = recognitionEventArgs.result;
     const text = result.text;
     const speakerId = result.speakerId || 'Unknown';
-    console.log(
-      `(recognized) Reason: ${SpeechSDK.ResultReason[result.reason]}` +
-        `Text: ${result.text}` +
-        `SpeakerId: ${speakerId}`,
-    );
 
     switch (result.reason) {
       case SpeechSDK.ResultReason.NoMatch:
