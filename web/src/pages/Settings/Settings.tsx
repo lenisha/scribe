@@ -20,7 +20,7 @@ function Settings() {
           size="small"
           color="warning"
         >
-          Whant to check 404?
+          Want to check 404?
         </Button>
       </FullSizeCenteredFlexBox>
     </>
