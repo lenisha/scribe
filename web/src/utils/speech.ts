@@ -135,7 +135,12 @@ async function getTokenOrRefresh(): Promise<{ token: string; region: string }> {
   const cookie = new Cookie();
   const speechToken = cookie.get('speech-token');
 
-  if (speechToken === undefined || speechToken === null || speechToken === '') {
+  if (
+    speechToken === undefined ||
+    speechToken === null ||
+    speechToken === '' ||
+    speechToken === 'undefined:undefined'
+  ) {
     try {
       const res = await axios.get(config.api.baseUrl + '/api/get-speech-token');
       const token = res.data.token;
