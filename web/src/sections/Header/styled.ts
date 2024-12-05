@@ -23,4 +23,4 @@ const NewButton = styled(Button)(({ theme }) => ({
   color: theme.palette.info.main,
 }));
 
-export { HotKeysButton , NewButton};
+export { HotKeysButton, NewButton };

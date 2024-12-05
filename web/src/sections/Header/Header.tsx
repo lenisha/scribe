@@ -1,46 +1,47 @@
-import GitHubIcon from '@mui/icons-material/GitHub';
+import { useNavigate } from 'react-router-dom';
+
+import AddTaskIcon from '@mui/icons-material/AddTask';
 import ThemeIcon from '@mui/icons-material/InvertColors';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import AddTaskIcon from '@mui/icons-material/AddTask';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 
 import { FlexBox } from '@/components/styled';
-import { repository, title } from '@/config';
 import useHotKeysDialog from '@/store/hotkeys';
-import useNotifications from '@/store/notifications';
+//import useNotifications from '@/store/notifications';
 import useSidebar from '@/store/sidebar';
 import useTheme from '@/store/theme';
-import { useNavigate } from 'react-router-dom';
+//import { getRandomJoke } from './utils';
+import { OS, getOS } from '@/utils/device-info';
 
 import { HotKeysButton, NewButton } from './styled';
-import { getRandomJoke } from './utils';
 
 function Header() {
   const [, sidebarActions] = useSidebar();
   const [theme, themeActions] = useTheme();
-  const [, notificationsActions] = useNotifications();
+  //const [, notificationsActions] = useNotifications();
   const [, hotKeysDialogActions] = useHotKeysDialog();
   const navigate = useNavigate();
 
-  function showNotification() {
-    notificationsActions.push({
-      options: {
-        // Show fully customized notification
-        // Usually, to show a notification, you'll use something like this:
-        // notificationsActions.push({ message: ... })
-        // `message` accepts string as well as ReactNode
-        // If you want to show a fully customized notification, you can define
-        // your own `variant`s, see @/sections/Notifications/Notifications.tsx
-        variant: 'customNotification',
-      },
-      message: getRandomJoke(),
-    });
-  }
+  // TODO: Remove or uncomment. Keeping for reference
+  // function showNotification() {
+  //   notificationsActions.push({
+  //     options: {
+  //       // Show fully customized notification
+  //       // Usually, to show a notification, you'll use something like this:
+  //       // notificationsActions.push({ message: ... })
+  //       // `message` accepts string as well as ReactNode
+  //       // If you want to show a fully customized notification, you can define
+  //       // your own `variant`s, see @/sections/Notifications/Notifications.tsx
+  //       variant: 'customNotification',
+  //     },
+  //     message: getRandomJoke(),
+  //   });
+  // }
 
   return (
     <Box sx={{ flexGrow: 1 }} data-pw={`theme-${theme}`}>
@@ -57,21 +58,20 @@ function Header() {
             >
               <MenuIcon />
             </IconButton>
-          
+
             <Tooltip title="New Note" arrow>
               <NewButton
-                  size="small"
-                  variant="outlined"
-                  color = "info"
-                  aria-label="new"
-                  onClick={() => navigate('/new-note')}
-                >
-                  <AddTaskIcon/>
-                  New Note
+                size="small"
+                variant="outlined"
+                color="info"
+                aria-label="new"
+                startIcon={<AddTaskIcon />}
+                onClick={() => navigate('/new-note')}
+              >
+                New Note
               </NewButton>
             </Tooltip>
           </FlexBox>
-
 
           <FlexBox>
             <FlexBox>
@@ -82,16 +82,10 @@ function Header() {
                   aria-label="open hotkeys dialog"
                   onClick={hotKeysDialogActions.open}
                 >
-                  alt + k
+                  {getOS() === OS.MAC ? '⌥' : 'alt'} + k
                 </HotKeysButton>
               </Tooltip>
             </FlexBox>
-            <Divider orientation="vertical" flexItem />
-            <Tooltip title="It's open source" arrow>
-              <IconButton color="info" size="large" component="a" href={repository} target="_blank">
-                <GitHubIcon />
-              </IconButton>
-            </Tooltip>
             <Divider orientation="vertical" flexItem />
             <Tooltip title="Switch theme" arrow>
               <IconButton

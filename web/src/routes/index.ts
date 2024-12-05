@@ -1,8 +1,5 @@
 import AddTaskIcon from '@mui/icons-material/AddTask';
-import BugReportIcon from '@mui/icons-material/BugReport';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import HomeIcon from '@mui/icons-material/Home';
-import TerrainIcon from '@mui/icons-material/Terrain';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 import asyncComponentLoader from '@/utils/loader';
@@ -28,7 +25,7 @@ const routes: Routes = {
     title: 'Settings',
     icon: SettingsIcon,
   },
- 
+
   [Pages.NotFound]: {
     component: asyncComponentLoader(() => import('@/pages/NotFound')),
     path: '*',
