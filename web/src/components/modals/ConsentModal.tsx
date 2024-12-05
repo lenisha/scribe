@@ -34,7 +34,7 @@ export default function ConsentModal({ isOpen, toggleModal, startRecording }: Co
             </Typography>
             <Typography variant="body1" margin={0} marginBottom="1rem">
               Before beginning a transcription, you must confirm that you have the patient&apos;s
-              consent.
+              consent to use the AI scribe.
             </Typography>
             <FlexBox marginBottom="1rem">
               <FormControlLabel

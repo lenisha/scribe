@@ -191,16 +191,22 @@ export default function DictatedNotes() {
                 gap="1rem"
                 width={'100%'}
               >
-                <Tooltip title={isTranscribing ? 'Stop' : 'Start'} arrow>
-                  <Button
-                    variant="contained"
-                    color={isTranscribing ? 'warning' : 'primary'}
-                    startIcon={isTranscribing ? <MicOffIcon /> : <MicIcon />}
-                    onClick={handleMicButtonClick}
-                    fullWidth={small}
-                  >
-                    {isTranscribing ? 'Stop Transcription' : 'Start Transcription'}
-                  </Button>
+                <Tooltip
+                  title={!selectedMic ? 'Select a microphone' : isTranscribing ? 'Stop' : 'Start'}
+                  arrow
+                >
+                  <span>
+                    <Button
+                      variant="contained"
+                      color={isTranscribing ? 'warning' : 'primary'}
+                      startIcon={isTranscribing ? <MicOffIcon /> : <MicIcon />}
+                      onClick={handleMicButtonClick}
+                      fullWidth={small}
+                      disabled={selectedMic ? false : true}
+                    >
+                      {isTranscribing ? 'Stop Transcription' : 'Start Transcription'}
+                    </Button>
+                  </span>
                 </Tooltip>
                 <Tooltip title="AI Generate SOAP" arrow>
                   <span style={{ width: small ? '100%' : 'fit-content' }}>
