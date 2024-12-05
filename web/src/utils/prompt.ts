@@ -26,10 +26,9 @@ async function generateSOAPNotes(
     startTime = startTime ? startTime : new Date();
     endTime = endTime ? endTime : new Date();
 
-    const timestamp = `${formatDate(startTime, language)} - ${formatDate(
+    const timestamp = `[Start Timestamp]: ${formatDate(startTime)}\n[End Timestamp]: ${formatDate(
       endTime,
-      language,
-    )} (${formatDuration(startTime, endTime)})`;
+    )}\n[Total Duration]: ${formatDuration(startTime, endTime)}`;
     return res.data.soap_note + '\n\n' + timestamp;
   } catch (err) {
     console.log(err);
