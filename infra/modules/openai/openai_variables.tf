@@ -35,5 +35,5 @@ variable "openai_version" {
 variable "openai_capacity" {
   description = "Capacity of gpt model"
   type        = string
-  default     = "100"
+  default     = "40"
 }
