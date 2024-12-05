@@ -26,10 +26,10 @@ async function generateSOAPNotes(
     startTime = startTime ? startTime : new Date();
     endTime = endTime ? endTime : new Date();
 
-    const timestamp = `${formatDate(startTime)} - ${formatDate(endTime)} (${formatDuration(
-      startTime,
+    const timestamp = `${formatDate(startTime, language)} - ${formatDate(
       endTime,
-    )})`;
+      language,
+    )} (${formatDuration(startTime, endTime)})`;
     return res.data.soap_note + '\n\n' + timestamp;
   } catch (err) {
     console.log(err);
@@ -60,7 +60,7 @@ async function generateHandout(soap_note: string, language: string): Promise<str
   }
 }
 
-const formatDate = (date: Date | null) => {
+const formatDate = (date: Date | null, language = 'en-CA') => {
   if (!date) return '';
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -71,7 +71,7 @@ const formatDate = (date: Date | null) => {
     second: '2-digit',
     hour12: true,
   };
-  return new Intl.DateTimeFormat('en-US', options).format(date);
+  return new Intl.DateTimeFormat(language, options).format(date);
 };
 
 const formatDuration = (start: Date, end: Date) => {

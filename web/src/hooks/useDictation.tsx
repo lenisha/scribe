@@ -26,7 +26,13 @@ export default function useDictation() {
     (newMics: MicrophoneList) => {
       const micStillAvailable = newMics.find((mic) => mic.deviceId === selectedMic);
       if (!micStillAvailable) {
-        setSelectedMic(() => '');
+        const defaultMic = newMics.find((mic) => mic.deviceId === 'default');
+
+        if (defaultMic) {
+          setSelectedMic(() => defaultMic.deviceId);
+        } else {
+          setSelectedMic(() => '');
+        }
       }
     },
     [selectedMic],
@@ -99,6 +105,14 @@ export default function useDictation() {
   function onCanceled(event: SpeechSDK.SpeechRecognitionCanceledEventArgs) {
     console.log('Canceled: ', event.errorDetails);
     console.log(`(cancel) Reason: ` + SpeechSDK.CancellationReason[event.reason]);
+    stopDictation();
+    alert(
+      `There was an error when starting transcription.
+       \n\nError Details:
+       \n${event.errorDetails}
+       \n\nReason Details:
+       \nSpeechSDK.CancellationReason[event.reason]`,
+    );
   }
 
   function onSessionStarted(event: SpeechSDK.SessionEventArgs) {

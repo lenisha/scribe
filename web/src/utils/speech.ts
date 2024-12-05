@@ -37,7 +37,7 @@ async function createSpeechTranscriber(
     console.error('Failed to create speech config.');
     return null;
   }
-  speechConfig.speechRecognitionLanguage = language ? language : 'en-US';
+  speechConfig.speechRecognitionLanguage = language ? language : 'en-CA';
   // Create the SpeechRecognizer and set up common event handlers and PhraseList data
   return new SpeechSDK.ConversationTranscriber(speechConfig, audioConfig);
 }
@@ -135,21 +135,24 @@ async function getTokenOrRefresh(): Promise<{ token: string; region: string }> {
   const cookie = new Cookie();
   const speechToken = cookie.get('speech-token');
 
-  if (speechToken === undefined || speechToken === null || speechToken === '') {
+  if (
+    speechToken === undefined ||
+    speechToken === null ||
+    speechToken === '' ||
+    speechToken === 'undefined:undefined'
+  ) {
     try {
       const res = await axios.get(config.api.baseUrl + '/api/get-speech-token');
       const token = res.data.token;
       const region = res.data.region;
       cookie.set('speech-token', region + ':' + token, { maxAge: 540, path: '/' });
 
-      console.log('Token fetched from back-end: ' + token.slice(-10) + ' region:' + region);
       return { token, region };
     } catch (err) {
       console.log(err);
       return { token: '', region: '' };
     }
   } else {
-    console.log('Token fetched from cookie: ' + speechToken.slice(-10));
     const idx = speechToken.indexOf(':');
     const token = speechToken.slice(idx + 1);
     const region = speechToken.slice(0, idx);
