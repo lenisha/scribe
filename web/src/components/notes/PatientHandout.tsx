@@ -21,13 +21,13 @@ import { FlexBox } from '../styled';
 export default function PatientHandout() {
   const small = useMediaQuery('(max-width: 400px)');
 
-  const { selectedLanguage, startTime, endTime, noteText, handoutText, updateHandoutText } =
+  const { selectedLanguage, startTime, endTime, soapText, handoutText, updateHandoutText } =
     useContext(NoteContext);
 
   const [isGeneratingHandout, setIsGeneratingHandout] = useState(false);
 
   const handleAIHandoutGenerate = async () => {
-    if (!noteText) {
+    if (!soapText) {
       console.log('No SOAP text to generate Handout');
       alert('No text to generate Handout');
     } else {
@@ -35,7 +35,7 @@ export default function PatientHandout() {
       console.log('Generating Handout from text');
 
       updateHandoutText('Generating the Handout.Please wait...');
-      const handout = await generateHandout(noteText, selectedLanguage);
+      const handout = await generateHandout(soapText, selectedLanguage);
       updateHandoutText(handout);
 
       setIsGeneratingHandout(false);
@@ -101,7 +101,7 @@ export default function PatientHandout() {
                 <Button
                   variant="contained"
                   sx={{ alignSelf: 'center', marginLeft: 'auto' }}
-                  disabled={isGeneratingHandout || !noteText}
+                  disabled={isGeneratingHandout || !soapText}
                   color={isGeneratingHandout ? 'warning' : 'primary'}
                   onClick={handleAIHandoutGenerate}
                   endIcon={<KeyboardArrowRightIcon />}
