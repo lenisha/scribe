@@ -13,7 +13,7 @@ function NewNote() {
       <Meta title="New Note" />
       <FlexBox flexDirection="column" justifyContent="center" width="100%" height="fit-content">
         <Typography variant="h5" fontWeight="medium" marginBlock="1rem" textAlign={'center'}>
-          Dictate New Note
+          Dictate a New Note
         </Typography>
         <FlexBox
           flexDirection="row"
