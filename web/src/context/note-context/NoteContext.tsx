@@ -1,11 +1,14 @@
 import { type ReactNode, createContext, useState } from 'react';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import { NoteContextType, NoteTextNames, SupportedLanguages } from './types';
 
 export const NoteContext = createContext<NoteContextType>({
   selectedLanguage: SupportedLanguages.EN,
   startTime: null,
   endTime: null,
+  sessionId: '',
   [NoteTextNames.NOTE]: '',
   [NoteTextNames.SOAP]: '',
   [NoteTextNames.HANDOUT]: '',
@@ -17,6 +20,8 @@ export const NoteContext = createContext<NoteContextType>({
   updateSoapText: () => {},
   updateHandoutText: () => {},
   clearAllText: () => {},
+  updateSessionId: () => {},
+  generateNewSessionId: () => {},
 });
 
 export default function NoteContextProvider({
@@ -40,6 +45,7 @@ export default function NoteContextProvider({
   const [noteText, setNoteText] = useState('');
   const [soapText, setSoapText] = useState('');
   const [handoutText, setHandoutText] = useState('');
+  const [sessionId, setSessionId] = useState('');
 
   const updateSelectedLangauge = (newLanguage: SupportedLanguages) => {
     setSelectedLanguage(() => newLanguage);
@@ -77,10 +83,20 @@ export default function NoteContextProvider({
     setHandoutText('');
   };
 
+  const updateSessionId = (newId: string) => {
+    setSessionId(() => newId);
+  };
+
+  const generateNewSessionId = () => {
+    const newId = uuidv4();
+    updateSessionId(newId);
+  };
+
   const noteCtx = {
     selectedLanguage: selectedLanguage,
     startTime,
     endTime,
+    sessionId,
     [NoteTextNames.NOTE]: noteText,
     [NoteTextNames.SOAP]: soapText,
     [NoteTextNames.HANDOUT]: handoutText,
@@ -92,6 +108,8 @@ export default function NoteContextProvider({
     updateSoapText: updateSoapText,
     updateHandoutText: updateHandoutText,
     clearAllText: clearAllText,
+    updateSessionId: updateSessionId,
+    generateNewSessionId: generateNewSessionId,
   };
 
   return <NoteContext.Provider value={noteCtx}>{children}</NoteContext.Provider>;
