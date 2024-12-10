@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { Close } from '@mui/icons-material';
 import { Button, Card, Modal, Typography, useMediaQuery } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
+import { useTheme } from '@mui/system';
 
 import { NoteContext } from '@/context/note-context/NoteContext';
 import config from '@/services/config';
@@ -17,6 +18,7 @@ interface ConsentModalProps {
 
 export default function FeedbackModal({ isOpen, toggleModal }: ConsentModalProps) {
   const small = useMediaQuery('(max-width: 493px)');
+  const isDarkTheme = useTheme().palette.mode === 'dark';
 
   const { startTime, endTime, sessionId } = useContext(NoteContext);
 
@@ -58,7 +60,7 @@ export default function FeedbackModal({ isOpen, toggleModal }: ConsentModalProps
             justifyContent={'space-between'}
             alignItems={'center'}
             borderBottom={1}
-            borderColor={grey[300]}
+            borderColor={isDarkTheme ? grey[600] : grey[300]}
           >
             <Typography variant="h6">Feedback Form</Typography>
             <Button variant="text" onClick={toggleModal} endIcon={<Close />}>
@@ -73,9 +75,9 @@ export default function FeedbackModal({ isOpen, toggleModal }: ConsentModalProps
             alignItems={'center'}
             gap={small ? '0' : '1rem'}
             borderBottom={1}
-            borderColor={grey[300]}
+            borderColor={isDarkTheme ? grey[600] : grey[300]}
             sx={{
-              backgroundColor: grey[50],
+              backgroundColor: isDarkTheme ? grey[800] : grey[50],
             }}
           >
             <Typography variant="h6" fontSize={'0.8rem'}>
