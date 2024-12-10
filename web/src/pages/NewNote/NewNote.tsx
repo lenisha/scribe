@@ -21,48 +21,44 @@ function NewNote() {
 
   return (
     <>
-      <FeedbackModal
-        isOpen={feebackModalOpen}
-        toggleModal={toggleFeedbackModal}
-        sessionId="qwertyuiop1234567890"
-      />
-      <Meta title="New Note" />
-      <FlexBox flexDirection="column" justifyContent="center" width="100%" height="fit-content">
-        <FlexBox
-          position={'relative'}
-          flexDirection={small ? 'column' : 'row'}
-          justifyContent={'center'}
-          alignItems={'center'}
-          marginBlock={'1rem'}
-          marginInline={'1rem'}
-        >
-          <Typography variant="h5" fontWeight="medium" marginBottom={0} textAlign={'center'}>
-            Dictate New Note
-          </Typography>
-
-          <Button
-            variant="text"
-            onClick={toggleFeedbackModal}
-            sx={{ position: small ? '' : 'absolute', right: small ? '' : 0 }}
+      <NoteContextProvider defaultLanguage={navigator.language}>
+        <FeedbackModal isOpen={feebackModalOpen} toggleModal={toggleFeedbackModal} />
+        <Meta title="New Note" />
+        <FlexBox flexDirection="column" justifyContent="center" width="100%" height="fit-content">
+          <FlexBox
+            position={'relative'}
+            flexDirection={small ? 'column' : 'row'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            marginBlock={'1rem'}
+            marginInline={'1rem'}
           >
-            Give Feedback
-          </Button>
-        </FlexBox>
-        <FlexBox
-          flexDirection="row"
-          flexWrap="wrap"
-          paddingInline="1rem"
-          gap="1rem"
-          height="100%"
-          width="100%"
-        >
-          <NoteContextProvider defaultLanguage={navigator.language}>
+            <Typography variant="h5" fontWeight="medium" marginBottom={0} textAlign={'center'}>
+              Dictate New Note
+            </Typography>
+
+            <Button
+              variant="text"
+              onClick={toggleFeedbackModal}
+              sx={{ position: small ? '' : 'absolute', right: small ? '' : 0 }}
+            >
+              Give Feedback
+            </Button>
+          </FlexBox>
+          <FlexBox
+            flexDirection="row"
+            flexWrap="wrap"
+            paddingInline="1rem"
+            gap="1rem"
+            height="100%"
+            width="100%"
+          >
             <DictatedNotes />
             <SOAPNotes />
             <PatientHandout />
-          </NoteContextProvider>
+          </FlexBox>
         </FlexBox>
-      </FlexBox>
+      </NoteContextProvider>
     </>
   );
 }
