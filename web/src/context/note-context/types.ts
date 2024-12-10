@@ -13,6 +13,7 @@ export interface NoteContextType {
   selectedLanguage: SupportedLanguages;
   startTime: Date | null;
   endTime: Date | null;
+  sessionId: string;
   [NoteTextNames.NOTE]: string;
   [NoteTextNames.SOAP]: string;
   [NoteTextNames.HANDOUT]: string;
@@ -24,4 +25,6 @@ export interface NoteContextType {
   updateSoapText: (_value: string) => void;
   updateHandoutText: (_value: string) => void;
   clearAllText: () => void;
+  updateSessionId: (_value: string) => void;
+  generateNewSessionId: () => void;
 }
