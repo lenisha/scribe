@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import MicIcon from '@mui/icons-material/Mic';
@@ -41,6 +41,7 @@ export default function DictatedNotes() {
     updateNoteText,
     updateSoapText,
     updateSelectedLanguage,
+    generateNewSessionId,
   } = useContext(NoteContext);
 
   const {
@@ -53,6 +54,12 @@ export default function DictatedNotes() {
     updateSelectedMic,
     getMicrophones,
   } = useDictation();
+
+  // TODO: Update with real Session ID logic
+  useEffect(() => {
+    generateNewSessionId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // should only run once on mount
 
   const defaultLanguages = Object.values(SupportedLanguages);
 
