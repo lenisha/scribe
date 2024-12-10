@@ -10,9 +10,14 @@ export interface ObservabilityConfig {
   connectionString: string;
 }
 
+export interface FeedbackForm {
+  formId: string;
+}
+
 export interface AppConfig {
   api: ApiConfig;
   observability: ObservabilityConfig;
+  feedback: FeedbackForm;
 }
 
 const config: AppConfig = {
@@ -23,6 +28,9 @@ const config: AppConfig = {
   },
   observability: {
     connectionString: import.meta.env.VITE_APPLICATIONINSIGHTS_CONNECTION_STRING || '',
+  },
+  feedback: {
+    formId: import.meta.env.VITE_FEEDBACK_FORM_ID || '',
   },
 };
 

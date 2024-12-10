@@ -44,7 +44,8 @@
     "react-hotkeys-hook": "^4.4.1",
     "react-router-dom": "^6.21.0",
     "recoil": "^0.7.7",
-    "universal-cookie": "^7.2.1"
+    "universal-cookie": "^7.2.1",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.1",
@@ -52,6 +53,7 @@
     "@types/node": "^20.10.4",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.17",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
     "@vitejs/plugin-react": "^4.2.1",
