@@ -1,7 +1,7 @@
 locals {
   tags                         = { azd-env-name : var.environment_name }
   sha                          = base64encode(sha256("${var.environment_name}${var.location}${data.azurerm_client_config.current.subscription_id}"))
-  resource_token               = "health2024" #substr(replace(lower(local.sha), "[^A-Za-z0-9_]", ""), 0, 13)
+  resource_token               = "devhealth2025-test" #substr(replace(lower(local.sha), "[^A-Za-z0-9_]", ""), 0, 13)
   cors                         = "*"
 }
 # ------------------------------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ module "openai" {
 # ------------------------------------------------------------------------------------------------------
 module "speech" {
   source         = "./modules/speech"
-  location       = var.location
+  location       = "canadacentral"
   rg_name        = data.azurerm_resource_group.rg.name
   tags           = local.tags
   resource_token = local.resource_token
@@ -125,7 +125,7 @@ module "api" {
     "AZURE_OPENAI_DEPLOYMENT"                = module.openai.gpt4_deployment_name
     "AZURE_OPENAI_ENDPOINT"                  = module.openai.openai_endpoint
     "SPEECH_KEY"                             = module.speech.speech_key
-    "SPEECH_REGION"                          = var.location
+    "SPEECH_REGION"                          = "canadacentral"
     "CORS"                                   = local.cors
     "SCM_DO_BUILD_DURING_DEPLOYMENT"         = "true"
     "APPLICATIONINSIGHTS_CONNECTION_STRING"  = module.applicationinsights.APPLICATIONINSIGHTS_CONNECTION_STRING
@@ -147,6 +147,5 @@ resource "null_resource" "api_set_allow_origins" {
     command = "az webapp config appsettings set --resource-group ${data.azurerm_resource_group.rg.name} --name ${module.api.APPSERVICE_NAME} --settings API_ALLOW_ORIGINS=${module.web.URI}"
   }
 }
-
 
 

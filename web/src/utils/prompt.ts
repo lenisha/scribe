@@ -21,6 +21,7 @@ async function generateSOAPNotes(
         headers: {
           'Content-Type': 'application/json',
         },
+        withCredentials: true
       },
     );
     startTime = startTime ? startTime : new Date();
@@ -50,6 +51,7 @@ async function generateHandout(soap_note: string, language: string): Promise<str
         headers: {
           'Content-Type': 'application/json',
         },
+        withCredentials: true
       },
     );
     return res.data.handout;

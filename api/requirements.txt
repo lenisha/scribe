@@ -6,3 +6,4 @@ python-dotenv
 flask_cors
 requests
 promptflow-core
+pyjwt

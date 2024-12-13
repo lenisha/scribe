@@ -49,7 +49,7 @@ resource "azurerm_cognitive_deployment" "gtp4" {
   }
 
   sku {
-    name = "Standard"
+    name = "GlobalStandard"
     capacity = var.openai_capacity
   }
 

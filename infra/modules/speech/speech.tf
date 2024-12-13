@@ -22,7 +22,7 @@ data "azurerm_client_config" "current" {}
 # ------------------------------------------------------------------------------------------------------
 resource "azurerm_ai_services" "speech" {
   name                = format("speech-%s", var.resource_token)
-  location            = var.location
+  location            = "canadacentral"
   resource_group_name = var.rg_name
   sku_name            = "S0"
   
