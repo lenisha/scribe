@@ -27,30 +27,30 @@ CORS(app, resources={
 ###
 # Helper function to decode the client principal
 ###
-def get_authenticated_user():
-    client_principal = request.headers.get('X-MS-CLIENT-PRINCIPAL')
-    if client_principal:
-        # Base64-decode the client principal
-        decoded = base64.b64decode(client_principal)
-        # Parse the JSON data
-        client_principal_data = json.loads(decoded)
-        return client_principal_data
-    else:
-        return None
+# def get_authenticated_user():
+#     client_principal = request.headers.get('X-MS-CLIENT-PRINCIPAL')
+#     if client_principal:
+#         # Base64-decode the client principal
+#         decoded = base64.b64decode(client_principal)
+#         # Parse the JSON data
+#         client_principal_data = json.loads(decoded)
+#         return client_principal_data
+#     else:
+#         return None
 
 ###
 # Enforce authentication on protected routes
 ###
-@app.before_request
-def require_authentication():
-    # List of paths that do not require authentication
-    exempt_paths = ['/', '/api/healthcheck']
-    if request.path in exempt_paths:
-        # Allow unauthenticated access to exempt paths
-        return
-    user = get_authenticated_user()
-    if not user:
-        return abort(401, description="Unauthorized")
+# @app.before_request
+# def require_authentication():
+#     # List of paths that do not require authentication
+#     exempt_paths = ['/', '/api/healthcheck']
+#     if request.path in exempt_paths:
+#         # Allow unauthenticated access to exempt paths
+#         return
+#     user = get_authenticated_user()
+#     if not user:
+#         return abort(401, description="Unauthorized")
 
 ###
 # Healthcheck endpoint (does not require authentication)
@@ -94,15 +94,15 @@ def generate_doc():
         data = request.json
         print("Received data for generate-doc:", data)
 
-        # Access authenticated user information if needed
-        user = get_authenticated_user()
-        # Example: Get the user's email address
-        user_email = None
-        if user:
-            for claim in user['claims']:
-                if claim['typ'] == 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress':
-                    user_email = claim['val']
-                    break
+        # # Access authenticated user information if needed
+        # user = get_authenticated_user()
+        # # Example: Get the user's email address
+        # user_email = None
+        # if user:
+        #     for claim in user['claims']:
+        #         if claim['typ'] == 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress':
+        #             user_email = claim['val']
+        #             break
 
         # Call your function with the received data
         note = send_transcription_to_prompty(
@@ -121,15 +121,15 @@ def generate_handout():
         data = request.json
         print("Received data for generate-handout:", data)
 
-        # Access authenticated user information if needed
-        user = get_authenticated_user()
-        # Example: Get the user's email address
-        user_email = None
-        if user:
-            for claim in user['claims']:
-                if claim['typ'] == 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress':
-                    user_email = claim['val']
-                    break
+        # # Access authenticated user information if needed
+        # user = get_authenticated_user()
+        # # Example: Get the user's email address
+        # user_email = None
+        # if user:
+        #     for claim in user['claims']:
+        #         if claim['typ'] == 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress':
+        #             user_email = claim['val']
+        #             break
 
         # Call your function with the received data
         handout = send_note_to_prompty(data['soap_note'], data['language'])
@@ -142,13 +142,13 @@ def generate_handout():
 # Debug endpoint to display headers (for testing purposes)
 # Remove or protect this endpoint before deploying to production
 ###
-@app.route('/api/headers', methods=['GET'])
-def headers():
-    user = get_authenticated_user()
-    if user:
-        return jsonify(user)
-    else:
-        return abort(401, description="Unauthorized")
+# @app.route('/api/headers', methods=['GET'])
+# def headers():
+#     user = get_authenticated_user()
+#     if user:
+#         return jsonify(user)
+#     else:
+#         return abort(401, description="Unauthorized")
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000, host='0.0.0.0')
