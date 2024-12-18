@@ -1,0 +1,32 @@
+Speaker Guest-1: Bonjour, Comment ça va?
+Speaker Guest-2: Bonjour, oui ça va bien vous même?
+Speaker Guest-1: Excellent oui, ça va bien. Je vais juste vous demander de vous identifier d'abord.
+Speaker Guest-1: Alors votre nom, prénom?
+Speaker Guest-2: Juliette Beauregard.
+Speaker Guest-1: Et votre date de naissance?
+Speaker Guest-2: C'est le 3 août 1980.
+Speaker Guest-1: 5 OK, parfait donc mon nom c'est Julie Lefebvre. Je suis infirmière praticienne. Je vous vois aujourd'hui, selon la note de l'infirmière que vous vous venez de voir au triage, vous voulez renouveler votre médication pour l'acné, le Rétinoïde qui qui s'appelle Stiva à 0.0 25 mg, c'est bien ça?
+Speaker Guest-1: Oui.
+Speaker Guest-1: C'est bien ça? Oui, oui, c'est bien ça.
+Speaker Guest-1: Donc c'est une crème, je voyais ça, ils font.
+Speaker Guest-1: Des tubes de 25 g là donc parfait oui, ça fait combien de temps que vous avez de l'acné?
+Speaker Guest-2: Depuis que je suis adolescente, là je pense que les hormones n'ont faite quand durant l'adolescence à comme sortie. Puis ouais, j'ai ça depuis que je suis adolescente.
+Speaker Guest-1: Avez-vous vu un dermatologue de depuis ce temps-là?
+Speaker Guest-2: Javais.eu mon médecin de famille qui m'avait suivie à ce moment-là, on avait fait 2 traitements d'acutam dans le passé.
+Speaker Guest-2: Puis après ces traitements d'Aquitaine, là on voit que ça s'est stabilisé tu sais. Puis juste avec la crème je suis bien là tu sais il y a des des lésions ici et là mettez, c'est vraiment léger, puis je trouve que c'est ça fait.
+Speaker Guest-1: Un bon résultat là OK, puis sur la crème comme telle, ça fait quelques temps que vous êtes dessus.
+Speaker Guest-1: Comme décané ou moi. Ouais, c'est pas d'irritation, votre poids devient pas rouge, trop sèche.
+Speaker Guest-2: Non non, j'ai aussi une bonne crème hydratante, c'est que ça, ça aide énormément aussi.
+Speaker Guest-1: Oui c'est ça exact. Puis vous utilisez pas de produit là asséchant, comme du pyroxée de de Brésil et l'eau d'autres d'autres choses. Vous avez réussi à trouver une bonne recette dans le fond.
+Speaker Guest-2: Là oui c'est c'est vraiment plein ça. Là je, je suis sur mon petit train d'aller là, puis la vie est belle là.
+Speaker Guest-1: Ok Ben génial, très très bien. Vous avez pas de lésions sur le corps? Non non, parfait. Votre pharmacie, c'est bien le Jean Coutu.
+Speaker Guest-1: Sur la rue Papineau.
+Speaker Guest-2: Oui, c'est bien ça.
+Speaker Guest-1: Ok très bien écoutez, puisque ça fait longtemps que vous êtes dessus, c'est bien stable, je vais vous le renouveler pour un an, comme ça vous vous allez pouvoir aller chercher là les les tubes comme comme vous le désirez. L'avantage de de des rétinoïdes ça aura un effet aussi anti rides fait que ça peut être tant mieux si vous le tolériez bien je pense qu'on va rester avec la même le même traitement, puis on va garder ça. Faites attention au soleil, c'est sûr que ça peut diminuer.
+Speaker Guest-1: Possibilité au soleil. J'imagine que que vous êtes déjà au courant par contre. Et puis ça ressemble à ça. Est ce que vous avez des questions de votre côté? Non pas du tout. Je suis habitué avec ce traitement là donc je le connais très bien mais non j'ai.
+Speaker Guest-2: Pas vraiment pas de.
+Speaker Guest-1: Question, ça va bien? Ben super super, je vous prescris la crème. Puis si vous avez des questions ou quoi que ce soit qui a qui a un problème, n'hésitez pas à nous recontacter.
+Speaker Guest-2: Parfait, merci beaucoup, merci bye.
+Speaker Guest-2: Bye.
+Speaker Guest-2: Oui.
+Speaker Unknown: 

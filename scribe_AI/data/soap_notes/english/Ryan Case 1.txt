@@ -1,0 +1,22 @@
+S:
+	•	Patient injured left ankle while playing soccer yesterday
+	•	Mechanism of injury: stepped on someone else's foot, causing ankle to roll inward
+	•	Pain localized to outer part of ankle
+	•	Able to weight bear and walk around (with a limp) after injury
+	•	No pain elsewhere on the foot, leg, or knee
+	•	No numbness/weakness in the lower extremity
+	•	Past medical history: asthma (well-controlled)
+	•	Meds: Symbicort inhaler, 1 puff daily
+	•	Allergies: Penicillin (mild reaction)
+O:
+	•	Patient appears well, alert and oriented, and not in any acute distress
+	•	Swelling and bruising noted to lateral aspect of left ankle
+	•	Range of motion limited due to swelling/pain
+	•	Patient reports tenderness when pressing on lateral malleolar zone
+	•	No tenderness at the base of 5th metatarsal or navicular areas
+A:
+	•	Inversion injury to left ankle
+P:
+	•	Advised to continue managing symptoms with rest, ice, compression, and elevation
+	•	Given tenderness in malleolar zone, will order X-ray to rule out fracture
+	•	Follow-up on results once available, or sooner if the condition worsens or any new concerns arise

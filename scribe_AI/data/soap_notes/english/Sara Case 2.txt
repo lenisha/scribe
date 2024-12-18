@@ -1,0 +1,66 @@
+S:
+
+Currently in ON. Reviewed CM, [insert first initial. Last name here], SOAP note and confirmed info provided. See note for details. 
+
+27 year old male engaging for a cough
+Onset: 2 days ago
+Duration: persistent throughout the day
+Aggravating factors: 
+	•	Cold air
+	•	Worse at night when lying down
+Alleviating factors: 
+	•	honey and lemon tea provides temporary relief
+Quality: Dry cough, no sputum production
+Associated symptoms:
+	•	Sore throat
+	•	Nasal congestion with sinus pain/pressure to frontal and maxillary sinus area, head feels a bit heavy
+	•	Post nasal drip
+	•	Low-grade fever (self-reported 37.8C) that has now resolved
+	•	Fatigue
+Red flags:
+	•	No chest pain
+	•	No shortness of breath
+	•	No wheezing
+	•	No hemoptysis
+	•	No loss of appetite or weight loss
+	•	No tachycardia
+	•	No tachypnea
+Sick contacts: Reports that a coworker had similar symptoms last week
+
+Treatments tried:
+	•	Lemon and honey tea with temporary relief
+	•	Dextromethorphan cough syrup with minimal effect
+Relevant health history:
+	•	No known exposures to dust, chemicals, sprays or pets at work or home
+	•	Non-smoker, no consistent second-hand smoke exposure
+	•	No history of asthma, COPD, or other chronic respiratory conditions, seasonal allergies
+Family history:
+	•	Father has seasonal allergies
+Current medications: None reported 
+Allergies: NKA
+
+O:
+	•	Confirmed ID
+	•	NAD, A+Ox3
+	•	Dressed appropriately, speaking in full sentences
+	•	No SOB, wheezing, muffled voice, excessive drooling noted on VC
+	•	Throat photo: provide description here 
+
+A:
+	•	Likely viral upper respiratory tract infection 
+
+P:
+Advised for some concerns, virtual care is not a substitute or replacement for in-person exam. Pt acknowledges this
+
+Differential diagnoses discussed: Viral vs bacterial URTI
+Treatment plan: 
+	•	Non-pharmacological options: Fluids, rest, throat lozenges (e.g. Halls or Cepacol), elevate head when sleeping/lying down to reduce postnasal drip, humidifier, saline nasal spray or rinse PRN and prior to steroid nasal spray(provided instructions on proper water to use for rinse - no tap water, only sterile or distilled)
+	•	Pharmacological option: Rx for nasonex nasal spray sent to pharmacy
+	•	Reviewed that since symptoms are likely viral, no need for antibiotics at this time
+	•	Given no evidence of bacterial infection in throat (no exudate or swollen tonsils), manage with non-pharmacological options
+	•	Reviewed red flags including, but not limited to: chest pain, shortness of breath, excessive wheezing, go to ER
+	•	If fever persists, sputum production develops, or patient feels generally unwell with no red flag symptoms, seek in person assessment 
+
+Follow up as needed; patient can engage 24/7/365 with any concerns. 
+
+

@@ -1,0 +1,40 @@
+Speaker Guest-1: Hello. Hi, Doctor Way. Hi there. It's nice to meet you. Nice to meet you too. How can I help?
+Speaker Guest-2: You today I'm looking for a prescription refill for two of my medications.
+Speaker Guest-1: OK. Sounds good. I'm certainly happy to help with that. If you could just let me know the names of your two medications as well as the dosages you take that.
+Speaker Guest-2: Yep. So the first one is Ramipril and I take 10 milligrams.
+Speaker Guest-2: Daily. Mm-hmm. And then the second one that I'm looking for is Crestor. And again, that's 10 milligrams daily.
+Speaker Guest-1: OK. Sounds good. And I'm guessing the ramipril you take it for blood pressure management and then the Crestor you take it for cholesterol?
+Speaker Guest-2: Yes, that's right.
+Speaker Guest-1: Sounds good, and roughly how long have you been taking these medications for?
+Speaker Guest-2: Both for five years.
+Speaker Guest-1: OK. All right.
+Speaker Guest-1: Any side effects with these dosages?
+Speaker Guest-2: Nope.
+Speaker Guest-1: No. OK. And do you remember when the last time you had any blood work done was?
+Speaker Guest-2: I think it was about six months ago and it came back normal.
+Speaker Guest-2: Oh, perfect. All right, so fairly recent and nothing of concern there. And do you happen to check your blood pressure at home?
+Speaker Guest-2: I do, it was probably about a month ago that I did it though.
+Speaker Guest-1: OK, do do you remember what the number was?
+Speaker Guest-2: It was 130 / 80.
+Speaker Guest-1: OK, perfect that, that's actually a pretty healthy number. So all good there. And then just checking in with with regards to your blood pressure, have you had any unusual symptoms lately? So things like having really bad headaches, blurry vision, chest pain, shortness of breath or palpitations?
+Speaker Guest-2: No, no, no.
+Speaker Guest-1: OK, good.
+Speaker Guest-1: And then in terms of your past medical history, do you have any other chronic issues I should be aware of?
+Speaker Guest-2: I do have high blood pressure and cholesterol.
+Speaker Guest-1: OK, that that's all.
+Speaker Guest-1: Yeah, that's all. And then any other medications that I should be aware of?
+Speaker Guest-2: No, just the two medications that I'm hoping to get a refill on.
+Speaker Guest-1: Sounds good and any allergies?
+Speaker Guest-2: No allergies? No.
+Speaker Guest-1: Awesome. So perfect, fairly straightforward here. So it sounds like you're you're doing well with your with your two medications.
+Speaker Guest-1: Been stay stable on the same dosages for many years.
+Speaker Guest-1: So I'll go ahead and submit a refill for you today. So one thing to keep in mind just with blood, with blood pressure monitoring, we always recommend checking this regularly at home if you want to do it, not necessarily like every single day, but maybe once every week or so. And then the target that we usually try to aim for just for your awareness is to keep it below about 135 / 85.
+Speaker Guest-1: So if you do ever find that it's persistently higher than that, please make sure you speak to to a doctor to assess it. And then this is more of a rare situation, but if you ever notice your blood pressure super high, we're talking above 180 / 110, that would be a reason to just go into an emergency room. Or if you're feeling any of those unusual symptoms like really bad headache, blurry vision, chest pain, shortness of breath.
+Speaker Guest-1: With the high blood pressure those those are all possible signs of a more concerning condition there. So before today sounds like you're doing well. So we'll we'll continue these medications at the same dosages and these will be faxed to your pharmacy shortly.
+Speaker Guest-2: Great. Awesome. Thank you so much, Doctor Way.
+Speaker Guest-1: You're welcome and just make sure you follow up before you run out of you you run out of these medications the next time.
+Speaker Guest-2: Sounds good, I will make a note to myself.
+Speaker Guest-1: Perfect. All right. Hope you have a great.
+Speaker Guest-2: Day you too.
+Speaker Unknown: 
+Speaker Unknown: 

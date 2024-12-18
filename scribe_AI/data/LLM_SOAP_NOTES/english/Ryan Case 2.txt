@@ -1,0 +1,22 @@
+Subjective:
+- Patient is requesting a prescription refill for two medications: Ramipril 10 mg daily and Crestor 10 mg daily.
+- No side effects reported from these medications.
+- Last blood work was done six months ago and results were normal.
+- Blood pressure was checked at home about a month ago, reading 130/80.
+- No unusual symptoms such as headaches, blurry vision, chest pain, shortness of breath, or palpitations reported.
+
+Past Medical History:
+- High blood pressure and cholesterol.
+- No allergies.
+
+Objective:
+- N/A
+
+Assessment:
+- Stable management of high blood pressure and cholesterol with current medication regimen.
+
+Plan:
+- Refill prescriptions for Ramipril 10 mg daily and Crestor 10 mg daily.
+- Advise patient to monitor blood pressure regularly at home, aiming for a target below 135/85.
+- Instruct patient to seek medical attention if blood pressure exceeds 180/110 or if experiencing concerning symptoms.
+- Follow up before running out of medications.

@@ -1,0 +1,7 @@
+S:Femme adulte venant pour des symptômes d'infection urinaire. Elle ressent une brûlure à la miction depuis 3 jours. Elle n'a pas de mal de ventre, pas de fièvre, pas de douleur lombaire, pas de relations sexuelles à risque, partenaire stable, pas enceinte, pas d'écoulement vaginal. Pas d'allergies aux médicaments, a eu une infection urinaire x3 ans, soulagée avec médication- ne se souvient plus laquelle. 
+
+O: Vidéo
+
+A: Infection urinaire
+
+P: Fosfomycine 1 dose, faxée à sa pharmacie. Doit être à jeun.

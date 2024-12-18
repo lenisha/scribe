@@ -1,0 +1,22 @@
+S:
+	•	Patient looking for refills on 2 medications
+	•	Ramipril 10mg daily (taking for high blood pressure)
+	•	Crestor 10mg daily (taking for high cholesterol)
+	•	Patient has been on both medications for >5 years
+	•	Doses are stable, no side effects
+	•	Most recent bloodwork completed 6 months ago, unremarkable
+	•	Most recent BP check was about a month ago: BP 130/80
+	•	Feels well overall, denies any headaches, blurry vision, chest pain, shortness of breath, or palpitations
+	•	Past medical history: high blood pressure, high cholesterol
+	•	Meds: Ramipril 10mg daily, Crestor 10mg daily
+	•	Allergies: none
+O:
+	•	Patient appears well, alert and oriented, and not in any acute distress
+A:
+	•	Hypertension, dyslipidemia
+P:
+	•	Since patient is doing well on both medications, agreed to refill both today for 3 months
+	•	Advised to continue monitoring BP regularly at home, seek care if persistently elevated >135/85
+	•	Reviewed red flags, including severely elevated BP >180/110, or high blood pressure associated with headache, blurry vision, chest pain, shortness of breath, or palpitations - patient aware to attend the Emergency Department if any of the above
+	•	Follow-up before medications run out, or sooner if new concerns arise
+
