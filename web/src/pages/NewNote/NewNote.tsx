@@ -1,9 +1,9 @@
 import Typography from '@mui/material/Typography';
 
 import Meta from '@/components/Meta';
-import DictatedNotes from '@/components/notes/DictatedNotes';
+import ClinicalNote from '@/components/notes/ClinicalNote';
 import PatientHandout from '@/components/notes/PatientHandout';
-import SOAPNotes from '@/components/notes/SOAPNotes';
+import Transcription from '@/components/notes/Transcription';
 import { FlexBox } from '@/components/styled';
 import NoteContextProvider from '@/context/note-context/NoteContext';
 
@@ -13,7 +13,7 @@ function NewNote() {
       <Meta title="New Note" />
       <FlexBox flexDirection="column" justifyContent="center" width="100%" height="fit-content">
         <Typography variant="h5" fontWeight="medium" marginBlock="1rem" textAlign={'center'}>
-          Dictate a New Note
+          AI Scribe Note
         </Typography>
         <FlexBox
           flexDirection="row"
@@ -24,8 +24,8 @@ function NewNote() {
           width="100%"
         >
           <NoteContextProvider defaultLanguage={navigator.language}>
-            <DictatedNotes />
-            <SOAPNotes />
+            <Transcription />
+            <ClinicalNote />
             <PatientHandout />
           </NoteContextProvider>
         </FlexBox>
