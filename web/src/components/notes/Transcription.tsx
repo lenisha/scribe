@@ -97,7 +97,7 @@ export default function DictatedNotes() {
         >
           <CardContent>
             <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-              Dictated Notes
+              Transcription
             </Typography>
             <TextField
               id="dictated-notes"
@@ -195,7 +195,7 @@ export default function DictatedNotes() {
                   title={!selectedMic ? 'Select a microphone' : isTranscribing ? 'Stop' : 'Start'}
                   arrow
                 >
-                  <span>
+                  <span style={{ width: small ? '100%' : 'fit-content' }}>
                     <Button
                       variant="contained"
                       color={isTranscribing ? 'warning' : 'primary'}
@@ -204,7 +204,7 @@ export default function DictatedNotes() {
                       fullWidth={small}
                       disabled={selectedMic ? false : true}
                     >
-                      {isTranscribing ? 'Stop Transcription' : 'Start Transcription'}
+                      {isTranscribing ? 'Stop Listening' : 'Start Listening'}
                     </Button>
                   </span>
                 </Tooltip>

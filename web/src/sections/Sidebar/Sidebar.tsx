@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { Logout } from '@mui/icons-material';
 import DefaultIcon from '@mui/icons-material/Deblur';
-import { Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -10,6 +10,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
+import Logo from '@/assets/TELUSLogoWithText';
 import { FlexBox } from '@/components/styled';
 import routes from '@/routes';
 import useSidebar from '@/store/sidebar';
@@ -28,9 +29,9 @@ function Sidebar() {
       data-pw="sidebar"
     >
       <FlexBox flexDirection={'column'} height="100%" alignItems={'center'} width={'15rem'}>
-        <Typography variant="h4" fontWeight="bold" marginTop={'1rem'} textAlign={'center'}>
-          AI Scribe
-        </Typography>
+        <Box marginTop="2rem" marginBottom="1rem">
+          <Logo />
+        </Box>
         <FlexBox
           width="100%"
           height="100%"
