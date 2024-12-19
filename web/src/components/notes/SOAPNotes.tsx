@@ -41,7 +41,7 @@ export default function SOAPNotes() {
       <Card sx={{ paddingBottom: '1rem', width: '100%', minHeight: 'fit-content', height: '100%' }}>
         <CardContent>
           <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-            SOAP Note
+            Clinical Note
           </Typography>
           <TextField
             id="soap-notes"

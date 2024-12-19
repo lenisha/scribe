@@ -13,7 +13,7 @@ function NewNote() {
       <Meta title="New Note" />
       <FlexBox flexDirection="column" justifyContent="center" width="100%" height="fit-content">
         <Typography variant="h5" fontWeight="medium" marginBlock="1rem" textAlign={'center'}>
-          Dictate a New Note
+          AI Scribe
         </Typography>
         <FlexBox
           flexDirection="row"
