@@ -9,8 +9,8 @@ import CopyButton from '../buttons/CopyButton';
 import PrintButton from '../buttons/PrintButton';
 import { FlexBox } from '../styled';
 
-export default function PatientHandout() {
-  const { startTime, endTime, handoutText, isGeneratingPatientHandout, updateHandoutText } =
+export default function SOAPNotes() {
+  const { soapText, startTime, endTime, isGeneratingClinicalNote, updateSoapText } =
     useContext(NoteContext);
 
   return (
@@ -18,30 +18,30 @@ export default function PatientHandout() {
       <Card sx={{ paddingBottom: '1rem', width: '100%', minHeight: 'fit-content', height: '100%' }}>
         <CardContent>
           <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-            Patient Handout
+            Clinical Note
           </Typography>
           <TextField
-            id="patient-handout"
-            name="patient-handout"
+            id="soap-notes"
+            name="soap-notes"
             multiline
             rows={20}
             variant="outlined"
             fullWidth
-            value={handoutText}
-            onChange={(e) => updateHandoutText(e.target.value)}
+            value={soapText}
+            onChange={(e) => updateSoapText(e.target.value)}
             sx={{ height: '100%', overflow: 'auto' }}
           />
         </CardContent>
         <CardActions sx={{ justifyContent: 'space-between', gap: '1rem', marginInline: '1rem' }}>
           <PrintButton
-            title="Patient Handout"
+            title="Clinical Note"
             subtitle={`Regarding: Clinical encounter dated ${formatDate(startTime)} -  ${formatDate(
               endTime,
             )} `}
-            content={handoutText}
-            disabled={isGeneratingPatientHandout || !handoutText}
+            content={soapText}
+            disabled={isGeneratingClinicalNote || !soapText}
           />
-          <CopyButton content={handoutText} disabled={isGeneratingPatientHandout || !handoutText} />
+          <CopyButton content={soapText} disabled={isGeneratingClinicalNote || !soapText} />
         </CardActions>
       </Card>
     </FlexBox>
